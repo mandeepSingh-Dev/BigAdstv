@@ -26,6 +26,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class LoginFragment : BaseFragment() {
 
+
     private var _binding : FragmentLoginBinding? = null
     private val binding : FragmentLoginBinding get() = _binding!!
 
@@ -51,7 +52,6 @@ class LoginFragment : BaseFragment() {
         }
 
         binding.passwordTxtInputEdtTxt.endIconMode
-
 
      //   binding.loginButton.setBackgroundDrawable(resources.getDrawable(R.drawable.button_gradient,null))
 
