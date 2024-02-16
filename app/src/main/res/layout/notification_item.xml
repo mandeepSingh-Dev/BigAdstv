@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:id="@+id/notificationTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Registration: Finibus Bonorum at Malorum"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+
+            />
+        <TextView
+            android:id="@+id/DatetimeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20 Jul 2023 at 9:30am"
+            android:drawableStart="@drawable/_814097_clock_schedule_time_icon"
+            android:textColor="@color/white"
+            android:drawablePadding="10dp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/descriptionTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/TXT_LBL_dummy_txt"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/lb_grey"
+        android:layout_marginTop="10dp"/>
+
+
+</LinearLayout>

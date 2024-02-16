@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">BigAds TV</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="TXT_LBL_login_for_existing_users">Login for Existing Users</string>
+    <string name="TXT_LBL_dummy_txt">Lorem ipsum dolor sit amset, consectetuer adipiscing elit, Aenean commodo ligula eget dolor.</string>
+    <string name="TXT_LBL_dummy_txt_2lines">Lorem ipsum dolor sit amset, consectetuer adipiscing elit, Aenean \n commodo ligula eget dolor.</string>
+    <string name="TXT_LBL_enter_email">Enter Email</string>
+    <string name="TXT_LBL_login">Login</string>
+    <string name="TXT_LBL_enter_password">Enter Password</string>
+    <string name="TXT_LBL_about_citi_prime_broadcasting">About CITI PRIME BROADCASTING</string>
+    <string name="TXT_LBL_about_citi_prime_broadcasting_2line">About CITI PRIME \nBROADCASTING</string>
+    <string name="TXT_LBL_we_re_the_sales_performance_agency_we_re_been_helping_businesses_drive_revenue">We\'re the sales performance agency. we\'re been helping businesses drive revenue.We\'re the sales performance agency. we\'re been helping businesses drive revenue.We\'re the sales performance agency. we\'re been helping businesses drive revenue.\n\nWe\'re the sales performance agency. we\'re been helping businesses drive revenue.We\'re the sales performance agency. we\'re been helping businesses drive revenue.\n\nWe\'re the sales performance agency. we\'re been helping businesses drive revenue.We\'re the sales performance agency. we\'re been helping businesses drive revenue.\n</string>
+    <string name="TXT_LBL_update">Update</string>
+    <string name="TXT_LBL_logout">Logout</string>
+    <string name="TXT_LBL__4_new_messages">4 New Messages</string>
+    <string name="TXT_LBL__10_messages">10 Messages</string>
+
+    <string name="TXT_LBL_please_enter_email">Please enter email.</string>
+    <string name="TXT_LBL_please_enter_password">Please enter password.</string>
+    <string name="TXT_LBL_please_enter_email_and_password">Please enter email and password.</string>
+    <string name="TXT_LBL_please_enter_valid_email">Please enter valid email.</string>
+    <string name="TXT_LBL_please_enter_valid_password">Please enter valid password.</string>
+</resources>

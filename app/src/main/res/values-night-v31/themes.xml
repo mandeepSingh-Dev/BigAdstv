@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Base.Theme.BigAdsTV" parent="Theme.MaterialComponents.NoActionBar">
+        <!-- Customize your dark theme here. -->
+        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+
+        <item name="android:windowBackground">@color/background_theme_color</item>
+        <item name="fontFamily">@font/poppins</item>
+
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowSplashscreenContent">@color/colorPrimary</item>
+        <item name="android:windowSplashScreenBackground">@color/colorPrimary</item>
+        <item name="android:windowSplashScreenBrandingImage">@color/colorPrimary</item>
+        <item name="android:windowSplashScreenAnimationDuration">0</item>
+        <item name="android:windowSplashScreenIconBackgroundColor">@color/colorPrimary</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@color/colorPrimary</item>
+
+
+
+
+    </style>
+
+</resources>

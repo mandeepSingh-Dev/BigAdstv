@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@color/colorPrimary"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/aboutCitiBroadcast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        app:icon="@drawable/logo_icon"
+        android:background="@drawable/state_selectors"
+        app:iconTint="@null"
+        android:textColor="@color/white"
+        android:text="@string/TXT_LBL_about_citi_prime_broadcasting_2line"
+        android:focusedByDefault="true"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        app:iconPadding="10dp"
+        app:iconSize="20dp"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.7dp"
+        android:background="@color/lb_grey"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+
+        />
+
+     <com.google.android.material.button.MaterialButton
+         android:id="@+id/update"
+         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        app:icon="@drawable/update"
+        app:iconTint="@null"
+         android:textAlignment="textStart"
+         android:textColor="@color/white"
+         android:background="@drawable/state_selectors"
+         android:text="@string/TXT_LBL_update"
+        android:textAllCaps="false"
+         android:focusedByDefault="true"
+         app:iconPadding="10dp"
+         app:iconSize="20dp"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.7dp"
+        android:background="@color/lb_grey"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/logout"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/TXT_LBL_logout"
+        android:background="@drawable/state_selectors"
+        android:textAllCaps="false"
+        android:textAlignment="textStart"
+        app:icon="@drawable/logout"
+        android:textColor="@color/white"
+        app:iconPadding="10dp"
+        android:focusedByDefault="true"
+        app:iconSize="20dp"
+        app:iconTint="@null" />
+
+
+</LinearLayout>

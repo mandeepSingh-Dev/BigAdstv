@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#32424F</color>
+    <color name="skyBlue">#3ABADA</color>
+    <color name="pink">#D33090</color>
+    <color name="background_theme_color">#12181e</color>
+
+
+</resources>
