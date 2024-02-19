@@ -4,6 +4,7 @@
     <style name="Base.Theme.BigAdsTV" parent="Theme.MaterialComponents.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/colorPrimary</item>
         <item name="fontFamily">@font/poppins</item>
 
         <item name="android:windowBackground">@color/background_theme_color</item>

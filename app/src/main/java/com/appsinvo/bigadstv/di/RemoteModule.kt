@@ -1,6 +1,7 @@
 package com.appsinvo.bigadstv.di
 
 import android.content.Context
+import androidx.navigation.Navigator
 import com.appsinvo.bigadstv.data.local.datastore.AppDatastore
 import com.appsinvo.bigadstv.data.remote.networkUtils.ConstantsRemote
 import com.appsinvo.bigadstv.data.remote.networkUtils.ConstantsRemote.READ_TIME
@@ -17,6 +18,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Singleton
 
 
@@ -48,8 +50,6 @@ object RemoteModule {
             .addInterceptor(errorInterceptors)
             .build()
     }
-
-
     @Provides
     @Singleton
     fun provideRetrofitInstance(okHttpClient: OkHttpClient): Retrofit = Retrofit
@@ -59,4 +59,30 @@ object RemoteModule {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
+
+    @Named("RealWorldDateTimeOkHttpClient")
+    @Provides
+    fun provideRealWDTimeOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
+        return OkHttpClient.Builder()
+            .writeTimeout(WRITE_TIME, TimeUnit.SECONDS)
+            .readTimeout(READ_TIME, TimeUnit.SECONDS)
+            .addInterceptor(httpLoggingInterceptor)
+            .build()
+    }
+
+    @Named(Qualifiers.REAL_WORLD_DATE_TIME_RETROFIT_INSTANCE)
+    @Provides
+    @Singleton
+    fun provideRealWorldDateTimeRetrofitInstance(@Named(Qualifiers.REAL_WORLD_DATE_TIME_OK_HTTPCLIENT) okHttpClient: OkHttpClient) : Retrofit = Retrofit
+        .Builder()
+        .baseUrl(ConstantsRemote.WORLD_TIME_API_URL)
+        .client(okHttpClient)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+}
+
+object Qualifiers{
+
+    const val REAL_WORLD_DATE_TIME_OK_HTTPCLIENT = "RealWorldDateTimeOkHttpClient"
+    const val REAL_WORLD_DATE_TIME_RETROFIT_INSTANCE = "RealWorldDateTimeOkHttpClient"
 }

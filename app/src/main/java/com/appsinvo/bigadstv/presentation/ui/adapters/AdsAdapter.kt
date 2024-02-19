@@ -1,23 +1,20 @@
 package com.appsinvo.bigadstv.presentation.ui.adapters
 
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import coil.load
 import com.appsinvo.bigadstv.R
 import com.appsinvo.bigadstv.data.remote.model.ads.getAllAds.response.AdsData
 import com.appsinvo.bigadstv.databinding.AdsLayoutItemBinding
 import com.bumptech.glide.Glide
 
 import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.Target
 
 
-class AdsAdapter(val onItemClick : (AdsData) -> Unit) : ListAdapter<AdsData, AdsAdapter.AdsViewHolder>(diffUtils) {
+class AdsAdapter(val onItemClick : (AdsData) -> Unit) : ListAdapter<AdsData, AdsAdapter.AdsViewHolder>(DiffUtils) {
 
     inner class AdsViewHolder(val binding : AdsLayoutItemBinding) : ViewHolder(binding.root)
     {
@@ -25,6 +22,7 @@ class AdsAdapter(val onItemClick : (AdsData) -> Unit) : ListAdapter<AdsData, Ads
         fun bind(adsData: AdsData)
         {
             binding.categoryTextView.text = (adsData.category ?: "").replaceFirstChar { it.uppercase() }
+
 
 /*
             val thumb = (layoutPosition * 1000).toLong()
@@ -54,7 +52,7 @@ class AdsAdapter(val onItemClick : (AdsData) -> Unit) : ListAdapter<AdsData, Ads
     }
 
 
-    object diffUtils : DiffUtil.ItemCallback<AdsData>(){
+    private object DiffUtils : DiffUtil.ItemCallback<AdsData>(){
         override fun areContentsTheSame(oldItem: AdsData, newItem: AdsData): Boolean {
             return oldItem == newItem
         }
@@ -63,6 +61,8 @@ class AdsAdapter(val onItemClick : (AdsData) -> Unit) : ListAdapter<AdsData, Ads
             return oldItem == newItem
         }
     }
+
+
 
 
 }

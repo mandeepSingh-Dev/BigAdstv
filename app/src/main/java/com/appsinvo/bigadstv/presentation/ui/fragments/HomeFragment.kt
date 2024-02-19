@@ -12,17 +12,29 @@ import androidx.navigation.fragment.findNavController
 import com.appsinvo.bigadstv.R
 import com.appsinvo.bigadstv.base.BaseFragment
 import com.appsinvo.bigadstv.data.remote.model.ads.getAllAds.response.AdsData
+import com.appsinvo.bigadstv.data.remote.model.ads.getAllAds.response.AllAdsResponse
 import com.appsinvo.bigadstv.data.remote.networkUtils.NetworkResult
 import com.appsinvo.bigadstv.databinding.FragmentHomeBinding
 import com.appsinvo.bigadstv.presentation.ui.adapters.AdsAdapter
 import com.appsinvo.bigadstv.presentation.ui.adapters.loadThumbnailFromGlide
-import com.appsinvo.bigadstv.presentation.ui.dialogs.PopUpWindowDialog
+import com.appsinvo.bigadstv.presentation.ui.dialogs.SettingsPopup
 import com.appsinvo.bigadstv.presentation.ui.viewmodels.AuthViewmodel
 import com.appsinvo.bigadstv.presentation.ui.viewmodels.HomeViewmodel
+import com.appsinvo.bigadstv.utils.ViewBottomScrollListener
+import com.appsinvo.bigadstv.utils.getHourOfDay
+import com.appsinvo.bigadstv.utils.get_Date_Of_UTC_Time
+import com.appsinvo.bigadstv.utils.inVisible
 import com.appsinvo.bigadstv.utils.showSnackbar
+import com.appsinvo.bigadstv.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
+import java.util.Calendar
 import java.util.Locale
+import java.util.TimeZone
+
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment() {
@@ -33,7 +45,9 @@ class HomeFragment : BaseFragment() {
     private val authViewmodel : AuthViewmodel by viewModels()
     private val homeViewmodel : HomeViewmodel by viewModels()
 
-     private var popUpWindowDialog: PopUpWindowDialog? = null
+     private var popUpWindowDialog: SettingsPopup? = null
+
+
 
     private val adsAdapter : AdsAdapter by lazy {
         AdsAdapter(onItemClick = {adsData ->
@@ -57,17 +71,10 @@ class HomeFragment : BaseFragment() {
     }
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        lifecycleScope.launch {
-            homeViewmodel.getAllAds(adType = "")
-        }
-    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstaUitlnceState: Bundle?
+        savedInstaUitlnceState: Bundle?,
     ): View? {
         _binding = FragmentHomeBinding.inflate(layoutInflater)
         return binding.root
@@ -75,7 +82,7 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        popUpWindowDialog = PopUpWindowDialog().createDropDown(requireContext(), onItemClick = {action ->
+        popUpWindowDialog = SettingsPopup().createDropDown(requireContext(), onItemClick = { action ->
             performSettingsWindowAction(action = action)
         })
 
@@ -190,9 +197,16 @@ class HomeFragment : BaseFragment() {
 
     private fun performSettingsWindowAction(action : String){
         when(action){
-            PopUpWindowDialog.SettingsPopupItemAction.ABOUT_CITI_PRIME_BROADCASTING.toString() -> {}
-            PopUpWindowDialog.SettingsPopupItemAction.UPDATE.toString() -> {}
-            PopUpWindowDialog.SettingsPopupItemAction.LOGOUT.toString() -> {
+            SettingsPopup.SettingsPopupItemAction.ABOUT_CITI_PRIME_BROADCASTING.toString() -> {}
+            SettingsPopup.SettingsPopupItemAction.UPDATE.toString() -> {
+
+                lifecycleScope.launch {
+                    homeViewmodel.currentPage = 1
+                    homeViewmodel.totalCount = 0
+                    homeViewmodel.getAllAds(page = homeViewmodel.currentPage.toString(), adType = "")
+                }
+            }
+            SettingsPopup.SettingsPopupItemAction.LOGOUT.toString() -> {
                 lifecycleScope.launch {
                     authViewmodel.logout()
                 }
@@ -202,6 +216,16 @@ class HomeFragment : BaseFragment() {
 
     private fun setUpAdsRecyclerView(){
         binding.adsRecyclerView.adapter = adsAdapter
+
+        binding.nestedScrollView.setOnScrollChangeListener(ViewBottomScrollListener{
+
+            lifecycleScope.launch {
+                if(adsAdapter.currentList.size < homeViewmodel.totalCount){
+                    homeViewmodel.currentPage += 1
+                    homeViewmodel.getAllAds(page = homeViewmodel.currentPage.toString(), adType = "")
+                }
+            }
+        })
     }
 
     private suspend fun observeLogoutApiResponse(){
@@ -227,57 +251,22 @@ class HomeFragment : BaseFragment() {
     var secondAD : AdsData? = null
     var thirdAD : AdsData? = null
     private suspend fun observeGetAllAdsApiResponse(){
-        homeViewmodel.allAdsResponse?.collect{networkResult ->
-            Log.d("fkbnjnfvf",networkResult.toString())
+        homeViewmodel.allAdsResponse.collect{networkResult ->
             when(networkResult){
                 is NetworkResult.Loading -> {
+                    if(homeViewmodel.currentPage == 1)
                     showLoading()
+                    else
+                        binding.pagintationProgressBar.visible()
                 }
                 is NetworkResult.Success ->{
                     hideLoading()
-                   val adsDataList =  networkResult.data?.data?.data?.toMutableList()
 
-                   val uList = adsDataList?.map {
-                        it.userName = networkResult.data?.data?.userName
-                        it.userLocation = networkResult.data?.data?.userAddr
-                       it.userImg = networkResult.data?.data?.userImg
-
-                       it
-                    }
-
-
-                    val listSize = uList?.size ?: 0
-                    Log.d("fkbmbkfnvf",listSize.toString())
-                    if(listSize > 3)
-                    {
-                         firstAD = uList?.get(0)
-                         secondAD = uList?.get(1)
-                         thirdAD = uList?.get(2)
-                    }
-
-
-                    binding.firstAdTextView.text = (firstAD?.category ?: "").replaceFirstChar { it.uppercase() }
-                    binding.secondAdTextView.text = (secondAD?.category ?: "").replaceFirstChar { it.uppercase() }
-                    binding.thirdADTextView.text = (thirdAD?.category ?: "").replaceFirstChar { it.uppercase() }
-
-                    binding.firstAdImageview.loadThumbnailFromGlide(firstAD?.filePath)
-                    binding.secondAdImageview.loadThumbnailFromGlide(secondAD?.filePath)
-                    binding.thirdADImageview.loadThumbnailFromGlide(thirdAD?.filePath)
-
-                   val newList =  uList?.mapIndexed { index, adsData ->
-                        if(index == 0 || index == 1 || index == 2){
-                            null
-                        }else{
-                            adsData
-                        }
-                    }
-
-                    val mList = newList?.toMutableList()
-                    mList?.removeIf { it == null }
-                    adsAdapter.submitList(uList/* mList */)
-                }
+                        setData(networkResult)
+                               }
                 is NetworkResult.Error -> {
                     hideLoading()
+                    binding.pagintationProgressBar.inVisible()
                     binding.root.showSnackbar(message = networkResult.error.toString())
                 }
             }
@@ -287,6 +276,85 @@ class HomeFragment : BaseFragment() {
     private fun navigateToLoginFragment(){
         val navOptions= NavOptions.Builder().setPopUpTo(R.id.nav_graph,true).build()
         findNavController().navigate(R.id.loginFragment,null,navOptions)
+    }
+
+    private fun setData(networkResult: NetworkResult.Success<AllAdsResponse>) {
+        val page = networkResult.data?.data?.page
+        val adsDataList =  networkResult.data?.data?.data?.toMutableList()
+
+        //If page 1 then just submit the list else add list in adapter's current list.
+        if(page == 1){
+            val uList = adsDataList?.map {
+                it.userName = networkResult.data.data.userName
+                it.userLocation = networkResult.data.data.userAddr
+                it.userImg = networkResult.data.data.userImg
+
+                it
+            }
+
+            val newListt = uList?.toMutableList()
+            uList?.forEach {
+                newListt?.add(it)
+            }
+
+
+
+            val listSize = uList?.size ?: 0
+            Log.d("fkbmbkfnvf",listSize.toString())
+            if(listSize > 3)
+            {
+                firstAD = uList?.get(0)
+                secondAD = uList?.get(1)
+                thirdAD = uList?.get(2)
+            }
+
+            binding.firstAdTextView.text = (firstAD?.category ?: "").replaceFirstChar { it.uppercase() }
+            binding.secondAdTextView.text = (secondAD?.category ?: "").replaceFirstChar { it.uppercase() }
+            binding.thirdADTextView.text = (thirdAD?.category ?: "").replaceFirstChar { it.uppercase() }
+
+            binding.firstAdImageview.loadThumbnailFromGlide(firstAD?.filePath)
+            binding.secondAdImageview.loadThumbnailFromGlide(secondAD?.filePath)
+            binding.thirdADImageview.loadThumbnailFromGlide(thirdAD?.filePath)
+
+            val newList =  uList?.mapIndexed { index, adsData ->
+                if(index == 0 || index == 1 || index == 2){
+                    null
+                }else{
+                    adsData
+                }
+            }
+
+            val mList = newList?.toMutableList()
+            mList?.removeIf { it == null }
+
+            //If user update the list which means pageNo. is 1 then first pass null list to submitList so that list can be clear in adapter
+            adsAdapter.submitList(null)
+            adsAdapter.submitList(uList)
+
+        }
+        else{
+            adsDataList?.let { addListToCurrentList(it) }
+        }
+    }
+    private fun addListToCurrentList(adsDataList : List<AdsData>){
+        var adapterList = adsAdapter.currentList.toMutableList()
+
+        adapterList.addAll(adsDataList)
+
+        //For now assigning custom field so that adapter can differentiate items and notify
+         adapterList =  adapterList.mapIndexed { index, adsData ->
+            adsData.category = index.toString()
+          adsData
+        }.toMutableList()
+
+
+        adsAdapter.submitList(adapterList) {
+            binding.pagintationProgressBar.inVisible()
+            binding.nestedScrollView.post {
+
+                 binding.nestedScrollView.smoothScrollTo(0,binding.nestedScrollView.scrollY + 50)
+              }
+        }
     }
 
 }

@@ -3,6 +3,7 @@ package com.appsinvo.bigadstv.domain.repositories
 import com.appsinvo.bigadstv.data.remote.model.ads.getAllAds.response.AllAdsResponse
 import com.appsinvo.bigadstv.data.remote.model.ads.trackAds.requestBody.TrackAdsRequestBody
 import com.appsinvo.bigadstv.data.remote.model.ads.trackAds.response.TrackAdsResponse
+import com.appsinvo.bigadstv.data.remote.model.realWorldDateTime.RealWorldDateTimeResponse
 import com.appsinvo.bigadstv.data.remote.networkUtils.ConstantsRemote
 import com.appsinvo.bigadstv.data.remote.networkUtils.NetworkResult
 import retrofit2.Response
@@ -15,3 +16,5 @@ interface AdsRepository {
    suspend fun trackAd(trackAdsRequestBody: TrackAdsRequestBody) : NetworkResult<TrackAdsResponse>
 
 }
+
+

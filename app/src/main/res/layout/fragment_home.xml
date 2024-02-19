@@ -57,9 +57,9 @@
                 android:layout_marginRight="10dp"
                 android:focusable="true"
 
-                android:nextFocusRight="@id/dateTimeTextView"
+                android:nextFocusRight="@id/dateTimeLinearLayout"
                 android:nextFocusUp="@id/logoIcon"
-                android:nextFocusDown="@id/dateTimeTextView"
+                android:nextFocusDown="@id/dateTimeLinearLayout"
                 android:nextFocusLeft="@id/logoIcon"
                 />
             <View
@@ -68,26 +68,40 @@
                 android:background="@color/lb_grey"
                 />
 
-            <TextView
-                android:id="@+id/dateTimeTextView"
+
+            <LinearLayout
+                android:id="@+id/dateTimeLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="10:00 AM \n Wed, Jan 24,2024"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_10sdp"
-                android:layout_gravity="center"
+                android:orientation="vertical"
                 android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
                 android:focusable="true"
-
-
-                 android:background="@drawable/state_selectors"
-                android:nextFocusRight="@id/notificationIcon"
                 android:nextFocusLeft="@id/logoIcon"
-                android:nextFocusDown="@id/notificationIcon"
+                android:nextFocusRight="@id/notificationIcon"
                 android:nextFocusUp="@id/logoIcon"
-                />
+                android:nextFocusDown="@id/notificationIcon" >
 
+
+
+                <TextClock
+                    android:id="@+id/txtClock"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"
+                    android:format12Hour="hh:mm a"
+                    />
+                <TextClock
+                    android:id="@+id/txtClock2"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"
+                    android:format12Hour="EEE, MMM d, yyyy"
+                    />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -101,11 +115,10 @@
                     android:padding="15dp"
                     android:background="@drawable/state_selectors"
                     android:focusable="true"
-
                     android:nextFocusRight="@id/settingItem"
                     android:nextFocusDown="@id/settingItem"
-                    android:nextFocusLeft="@id/dateTimeTextView"
-                    android:nextFocusUp="@id/dateTimeTextView"
+                    android:nextFocusLeft="@id/dateTimeLinearLayout"
+                    android:nextFocusUp="@id/dateTimeLinearLayout"
                     >
                     <ImageView
                         android:layout_width="wrap_content"
@@ -167,11 +180,8 @@
                 </LinearLayout>
 
 
+
             </LinearLayout>
-
-
-
-
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -189,6 +199,7 @@
 
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:fillViewport="true"
@@ -446,7 +457,17 @@
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
-
+        <ProgressBar
+            android:id="@+id/pagintationProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:elevation="30dp"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

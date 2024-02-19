@@ -66,10 +66,7 @@ class LoginFragment : BaseFragment() {
 
                 authViewmodel.login(loginRequestBody = loginRequestBody)
             }
-
-
         }
-
     }
 
 

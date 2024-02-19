@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.Player
 import androidx.media3.datasource.HttpDataSource
 import androidx.navigation.fragment.navArgs
@@ -72,6 +73,9 @@ class PlayerFragment : BaseFragment() {
 
        // val adsData = navArgs.adsData
 
+        lifecycleScope.launch {
+            homeViewmodel.getCurrentWorldDateTime()
+        }
         playerControllerIdBinding = PlayerControllerIdBinding.inflate(layoutInflater)
 
         username = view.findViewById(R.id.username)
@@ -135,7 +139,7 @@ class PlayerFragment : BaseFragment() {
                 mExoplayer.currentStartTime = System.currentTimeMillis().toLong()
 
 
-                val trackAdsRequestBody = TrackAdsRequestBody(advertisementId = adsData?.advertisementId,endTime = null,id = null/* adsData?.userId */,startTime  = mExoplayer.currentStartTime.formatMillisToDateTime(), watchTime = mExoplayer.videoWatchedTime?.toInt())
+                val trackAdsRequestBody = TrackAdsRequestBody(advertisementId = adsData?.advertisementId.toString(),endTime = null,id = null/* adsData?.userId */,startTime  = mExoplayer.currentStartTime.formatMillisToDateTime(), watchTime = mExoplayer.videoWatchedTime?.toInt())
 
               /*   GlobalScope.launch {
                     homeViewmodel.trackAds(trackAdsRequestBody)
@@ -150,7 +154,7 @@ class PlayerFragment : BaseFragment() {
                         Log.d("flvjkfvnf",mExoplayer.videoWatchedTime.toString() + "  STATE_IDLE")
                         Log.d("fjkvnkfjvnfv","STATE_IDLE")
 
-                        val trackAdsRequestBody = TrackAdsRequestBody(advertisementId = adsData?.advertisementId,endTime = System.currentTimeMillis().formatMillisToDateTime(),id = null/* adsData?.userId */,startTime  = mExoplayer.currentStartTime.formatMillisToDateTime(), watchTime = mExoplayer?.videoWatchedTime?.toInt())
+                        val trackAdsRequestBody = TrackAdsRequestBody(advertisementId = adsData?.advertisementId.toString(),endTime = System.currentTimeMillis().formatMillisToDateTime(),id = null/* adsData?.userId */,startTime  = mExoplayer.currentStartTime.formatMillisToDateTime(), watchTime = mExoplayer?.videoWatchedTime?.toInt())
 
                         GlobalScope.launch {
                             homeViewmodel.trackAds(trackAdsRequestBody)
@@ -165,7 +169,7 @@ class PlayerFragment : BaseFragment() {
                         Log.d("fjkvnkfjvnfv","STATE_ENDED")
                         Log.d("flvjkfvnf",mExoplayer.videoWatchedTime.toString() + "  STATE_ENDED")
 
-                        val trackAdsRequestBody = TrackAdsRequestBody(advertisementId = adsData?.advertisementId,endTime = System.currentTimeMillis().formatMillisToDateTime(),id = null/* adsData?.userId */,startTime  = mExoplayer.currentStartTime.formatMillisToDateTime(), watchTime = mExoplayer?.videoWatchedTime?.toInt())
+                        val trackAdsRequestBody = TrackAdsRequestBody(advertisementId = adsData?.advertisementId.toString(),endTime = System.currentTimeMillis().formatMillisToDateTime(),id = null/* adsData?.userId */,startTime  = mExoplayer.currentStartTime.formatMillisToDateTime(), watchTime = mExoplayer?.videoWatchedTime?.toInt())
 
                         GlobalScope.launch {
                             homeViewmodel.trackAds(trackAdsRequestBody)
@@ -252,11 +256,6 @@ class PlayerFragment : BaseFragment() {
         val adsDataList = navArgs.adsDataList
 
         val links = adsDataList.map { it.filePath }
-
-        links.forEach {
-            Log.d("fbkknfkvkfv",it.toString())
-        }
-
 
      //   mExoplayer.setMediaItems(mutableListOf("https://v3.cdnpk.net/videvo_files/video/free/2015-09/large_preview/Countdown1.mp4","https://app-dev-appsinvo.s3.amazonaws.com/BigAdsAdmin/2851f01409f.mp4")/* links.toMutableList() */)
         mExoplayer.setMediaItems(links.toMutableList())

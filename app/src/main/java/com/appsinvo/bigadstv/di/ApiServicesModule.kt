@@ -2,11 +2,14 @@ package com.appsinvo.bigadstv.di
 
 import com.appsinvo.bigadstv.data.remote.apiServices.AdsService
 import com.appsinvo.bigadstv.data.remote.apiServices.AuthService
+import com.appsinvo.bigadstv.data.remote.apiServices.RealWorldTimeApiService
 import com.appsinvo.bigadstv.data.remote.model.ads.getAllAds.response.AllAdsResponseData
 import com.appsinvo.bigadstv.data.remote.remoteRepositories.AdsRepositoryImpl
 import com.appsinvo.bigadstv.data.remote.remoteRepositories.AuthRepositoryImpl
+import com.appsinvo.bigadstv.data.remote.remoteRepositories.RealWorldDateTimeRepositoryImpl
 import com.appsinvo.bigadstv.domain.repositories.AdsRepository
 import com.appsinvo.bigadstv.domain.repositories.AuthRepository
+import com.appsinvo.bigadstv.domain.repositories.RealWorldDateTimeRepository
 import com.appsinvo.bigadstv.domain.useCases.ads.AdsAllUseCases
 import com.appsinvo.bigadstv.domain.useCases.ads.GetAllAdsUsecase
 import com.appsinvo.bigadstv.domain.useCases.ads.TrackAdUsecase
@@ -18,6 +21,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
+import javax.inject.Named
 
 
 @Module
@@ -32,6 +36,9 @@ object ApiServicesModule {
     @Provides
     fun provideAdsService(retrofit: Retrofit) : AdsService = retrofit.create(AdsService::class.java)
 
+    @Provides
+    fun provideRealTimeApiService(@Named(Qualifiers.REAL_WORLD_DATE_TIME_RETROFIT_INSTANCE) retrofit : Retrofit) : RealWorldTimeApiService = retrofit.create(RealWorldTimeApiService::class.java)
+
 
     //Providing Repositories
 
@@ -40,6 +47,9 @@ object ApiServicesModule {
 
     @Provides
     fun provideAdsRepository(adsRepositoryImpl : AdsRepositoryImpl) : AdsRepository = adsRepositoryImpl
+
+    @Provides
+    fun provideRealWorldDateTimeRepository(realWorldDateTimeRepositoryImpl: RealWorldDateTimeRepositoryImpl) : RealWorldDateTimeRepository = realWorldDateTimeRepositoryImpl
 
 
     //Providing UseCases

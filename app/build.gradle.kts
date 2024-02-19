@@ -23,6 +23,21 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+  /*   signingConfigs{
+        getByName("debug"){
+            keyAlias = ""
+            keyPassword = ""
+            storeFile = File("")
+            storePassword =""
+        }
+        create("release"){
+            keyAlias = ""
+            keyPassword = ""
+            storeFile = File("")
+            storePassword =""
+        }
+    } */
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -30,6 +45,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+         //   signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {
@@ -43,6 +59,12 @@ android {
     buildFeatures{
         viewBinding = true
     }
+
+  /*   bundle {
+        language {
+            enableSplit = false
+        }
+    } */
 }
 
 dependencies {
@@ -105,5 +127,13 @@ dependencies {
     implementation("androidx.media3:media3-exoplayer:1.2.1")
     implementation("androidx.media3:media3-exoplayer-dash:1.2.1")
     implementation("androidx.media3:media3-ui:1.2.1")
+
+    val room_version = "2.6.1"
+    implementation("androidx.room:room-runtime:$room_version")
+    annotationProcessor("androidx.room:room-compiler:$room_version")
+    kapt("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
+
+
 
 }

@@ -1,13 +1,16 @@
 package com.appsinvo.bigadstv.utils
 
 import android.app.Dialog
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import java.util.TimeZone
 
 fun View.showToast(message : String?, lenght : Int = Toast.LENGTH_SHORT){
     message?.let { Toast.makeText(this.context,message,lenght).show() }
@@ -52,4 +55,45 @@ fun Long.formatMillisToDateTime(): String {
     val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX", Locale.getDefault())
     return dateFormat.format(Date(this))
 }
+
+fun String.get_Formatted_UTC_Time(format : String = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSXXX"): String? {
+
+    val isoFormat = SimpleDateFormat(format, Locale.getDefault())
+    isoFormat.timeZone = TimeZone.getTimeZone("UTC")
+
+   return try {
+     /* source : "2024-02-19T17:10:27.492343+05:30"  EXAMPLE */
+
+        val date = isoFormat.parse(this)
+        val timeFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+        timeFormat.timeZone = TimeZone.getDefault() // Use local timezone
+        timeFormat.format(date)
+    } catch (e: Exception) {
+        e.printStackTrace()
+        null // Handle parsing error
+    }
+}
+
+fun String.get_Date_Of_UTC_Time(format : String = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSXXX"): Date? {
+
+    val isoFormat = SimpleDateFormat(format, Locale.getDefault())
+    isoFormat.timeZone = TimeZone.getTimeZone("UTC")
+    return try {
+        /* source : "2024-02-19T17:10:27.492343+05:30"  EXAMPLE */
+        val date = isoFormat.parse(this)
+        date
+    } catch (e: Exception) {
+        e.printStackTrace()
+        null // Handle parsing error
+    }
+}
+
+fun Date.getHourOfDay(): Int {
+    val cal = Calendar.getInstance()
+    cal.timeInMillis = this.time
+    return  cal.get(Calendar.HOUR_OF_DAY)
+
+}
+
+
 

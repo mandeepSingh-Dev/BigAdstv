@@ -9,16 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupWindow
 import androidx.appcompat.R.*
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.appsinvo.bigadstv.databinding.SettingsPopupLayoutBinding
 
 
-class PopUpWindowDialog  {
+class SettingsPopup  {
 
-    var popupWindow : PopupWindow? = null
+    private var popupWindow : PopupWindow? = null
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    fun  createDropDown(context: Context, onItemClick : (String) -> Unit): PopUpWindowDialog {
+    fun  createDropDown(context: Context, onItemClick : (String) -> Unit): SettingsPopup {
 
         val settingsPopupLayoutBinding = SettingsPopupLayoutBinding.inflate(LayoutInflater.from(context))
 

@@ -8,7 +8,7 @@ import kotlinx.parcelize.Parcelize
 data class AdsData(
     val adType: Int?,
     val advertisementId: String?,
-    val category: String?,
+    var category: String?,
     val cost: Int?,
     val endDate: String?,
     val endTime: String?,

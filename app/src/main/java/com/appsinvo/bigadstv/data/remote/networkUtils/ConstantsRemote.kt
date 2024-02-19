@@ -3,6 +3,7 @@ package com.appsinvo.bigadstv.data.remote.networkUtils
 object ConstantsRemote {
 
     const val BASE_URL = "http://50.18.184.132:9562/api/"
+    const val WORLD_TIME_API_URL = "http://worldtimeapi.org/api/"
     private const val USER_ENDPOINT = "user"
 
     //API WRITE AND READ TIME OUT
