@@ -76,7 +76,7 @@ class HomeViewmodel @Inject constructor(private val adsAllUseCases: AdsAllUseCas
     suspend fun trackAds(trackAdsRequestBody: TrackAdsRequestBody){
       //  _trackAdsResponse.send(NetworkResult.Loading())
 
-        adsDao.insertTrackAd(trackAdsRequestBody = trackAdsRequestBody)
+      //  adsDao.insertTrackAd(trackAdsRequestBody = trackAdsRequestBody)
 
         val resp = getCurrentWorldDateTime()
         if(resp is NetworkResult.Success){

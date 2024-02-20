@@ -6,7 +6,7 @@ import com.appsinvo.bigadstv.data.remote.model.ads.getAllAds.response.AllAdsResp
 import com.appsinvo.bigadstv.data.remote.model.ads.trackAds.requestBody.TrackAdsRequestBody
 import com.appsinvo.bigadstv.data.remote.model.ads.trackAds.response.TrackAdsResponse
 import com.appsinvo.bigadstv.data.remote.model.auth.login.response.LogoutResponse
-import com.appsinvo.bigadstv.data.remote.model.error.apiResponse1.ApiErrorResponse
+import com.appsinvo.bigadstv.data.remote.model.common.error.apiResponse1.ApiErrorResponse
 import com.appsinvo.bigadstv.data.remote.networkUtils.NetworkResult
 import com.appsinvo.bigadstv.data.remote.networkUtils.handleUseCaseException
 import com.appsinvo.bigadstv.domain.repositories.AdsRepository

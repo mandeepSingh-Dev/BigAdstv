@@ -17,6 +17,7 @@ object ConstantsRemote {
     const val logout = "$USER_ENDPOINT/logout"
     const val getAllAds = "$USER_ENDPOINT/getAllAds"
     const val userAdTrack = "$USER_ENDPOINT/userAdTrack"
+    const val getNotifications = "$USER_ENDPOINT/getNotification"
 
     //param-keys
     const val page = "page"

@@ -16,17 +16,57 @@ class SettingsPopup  {
 
     private var popupWindow : PopupWindow? = null
 
-    @SuppressLint("UseCompatLoadingForDrawables")
+    @SuppressLint("UseCompatLoadingForDrawables", "ClickableViewAccessibility")
     fun  createDropDown(context: Context, onItemClick : (String) -> Unit): SettingsPopup {
 
         val settingsPopupLayoutBinding = SettingsPopupLayoutBinding.inflate(LayoutInflater.from(context))
 
         popupWindow = PopupWindow(settingsPopupLayoutBinding.root, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true)
 
+        settingsPopupLayoutBinding.aboutCitiBroadcast.setOnFocusChangeListener { v, hasFocus ->
+            Log.d("Dvlvmkfvf",v.measuredState.toString())
+            v.drawableState.forEach {
+                Log.d("Fvlfmnvkfnvf",it.toString())
+            }
+
+        }
+        settingsPopupLayoutBinding.aboutCitiBroadcast.setOnFocusChangeListener { v, hasFocus ->
+            Log.d("Dvlvmkfvf",v.measuredState.toString())
+            v.drawableState.forEach {
+                Log.d("Fvlfmnvkfnvf",it.toString())
+            }
+
+        }
+        settingsPopupLayoutBinding.aboutCitiBroadcast.setOnFocusChangeListener { v, hasFocus ->
+            Log.d("Dvlvmkfvf",v.measuredState.toString())
+            v.drawableState.forEach {
+                Log.d("Fvlfmnvkfnvf",it.toString())
+            }
+
+        }
+
+        settingsPopupLayoutBinding.update.setOnHoverListener { v, event ->
+
+            Log.d("mvkmvf","update Hovered")
+            return@setOnHoverListener true
+        }
+   settingsPopupLayoutBinding.logout.setOnHoverListener { v, event ->
+
+            Log.d("mvkmvf","login Hovered")
+            return@setOnHoverListener true
+        }
+   settingsPopupLayoutBinding.aboutCitiBroadcast.setOnHoverListener { v, event ->
+
+            Log.d("mvkmvf","about Hovered")
+            return@setOnHoverListener true
+        }
+
         // Set background for touch outside to dismiss
 //        popupWindow?.setBackgroundDrawable(context.resources.getDrawable(R.color.lightGrey,null))
         // Set animation if needed
         popupWindow?.animationStyle = android.R.style.Animation_Dialog
+
+
 
         settingsPopupLayoutBinding.logout.setOnClickListener {
             onItemClick(SettingsPopupItemAction.LOGOUT.toString())
@@ -40,6 +80,26 @@ class SettingsPopup  {
         settingsPopupLayoutBinding.aboutCitiBroadcast.setOnClickListener {
             onItemClick(SettingsPopupItemAction.ABOUT_CITI_PRIME_BROADCASTING.toString())
             dismiss()
+        }
+
+        settingsPopupLayoutBinding.aboutCitiBroadcast.setOnTouchListener { v, event ->
+
+            Log.d("flvjfkvnf",event.action.toString())
+
+            return@setOnTouchListener true
+        }
+
+        settingsPopupLayoutBinding.aboutCitiBroadcast.setOnHoverListener { v, event ->
+            Log.d("flvjkfnvf",event.action.toString() + " about")
+            return@setOnHoverListener true
+        }
+  settingsPopupLayoutBinding.update.setOnHoverListener { v, event ->
+            Log.d("flvjkfnvf",event.action.toString() + " update")
+            return@setOnHoverListener true
+        }
+  settingsPopupLayoutBinding.logout.setOnHoverListener { v, event ->
+            Log.d("flvjkfnvf",event.action.toString() + " logout")
+            return@setOnHoverListener true
         }
 
 

@@ -21,4 +21,8 @@
     <string name="TXT_LBL_please_enter_email_and_password">Please enter email and password.</string>
     <string name="TXT_LBL_please_enter_valid_email">Please enter valid email.</string>
     <string name="TXT_LBL_please_enter_valid_password">Please enter valid password.</string>
+    <string name="TXT_LBL_Are_you_sure_you_want_to_exit">Are you sure you want to exit?</string>
+    <string name="TXT_LBL_yes">Yes</string>
+    <string name="TXT_LBL_no">No</string>
+
 </resources>

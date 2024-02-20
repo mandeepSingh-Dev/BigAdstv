@@ -2,6 +2,7 @@ package com.appsinvo.bigadstv.presentation.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -37,6 +38,18 @@ class AdsAdapter(val onItemClick : (AdsData) -> Unit) : ListAdapter<AdsData, Ads
             binding.root.setOnClickListener {
                 onItemClick(adsData)
             }
+
+          /*   binding.root.setOnFocusChangeListener { v, hasFocus ->
+                if(hasFocus){
+                    val animationUtils = AnimationUtils.loadAnimation(binding.root.context,R.anim.scale_in_tv)
+                    binding.root.startAnimation(animationUtils)
+                    animationUtils.fillAfter = true
+                }else{
+                    val animationUtils = AnimationUtils.loadAnimation(binding.root.context,R.anim.scale_out_tv)
+                    binding.root.startAnimation(animationUtils)
+                    animationUtils.fillAfter = true
+                }
+            } */
         }
 
     }

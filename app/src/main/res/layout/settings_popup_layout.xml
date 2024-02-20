@@ -5,6 +5,7 @@
     android:orientation="vertical"
     android:padding="10dp"
     android:background="@color/colorPrimary"
+    android:focusedByDefault="true"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
@@ -14,8 +15,10 @@
         android:layout_height="wrap_content"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         app:icon="@drawable/logo_icon"
-        android:background="@drawable/state_selectors"
+        app:backgroundTint="@color/color_state_selector"
         app:iconTint="@null"
+        android:focusable="true"
+        android:backgroundTint="@null"
         android:textColor="@color/white"
         android:text="@string/TXT_LBL_about_citi_prime_broadcasting_2line"
         android:focusedByDefault="true"
@@ -41,8 +44,8 @@
         app:icon="@drawable/update"
         app:iconTint="@null"
          android:textAlignment="textStart"
+         app:backgroundTint="@color/color_state_selector"
          android:textColor="@color/white"
-         android:background="@drawable/state_selectors"
          android:text="@string/TXT_LBL_update"
         android:textAllCaps="false"
          android:focusedByDefault="true"
@@ -63,7 +66,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/TXT_LBL_logout"
-        android:background="@drawable/state_selectors"
+        app:backgroundTint="@color/color_state_selector"
         android:textAllCaps="false"
         android:textAlignment="textStart"
         app:icon="@drawable/logout"

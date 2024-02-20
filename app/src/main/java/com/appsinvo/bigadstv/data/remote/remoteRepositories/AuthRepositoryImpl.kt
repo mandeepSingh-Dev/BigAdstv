@@ -7,7 +7,7 @@ import com.appsinvo.bigadstv.data.remote.apiServices.AuthService
 import com.appsinvo.bigadstv.data.remote.model.auth.login.requestBody.LoginRequestBody
 import com.appsinvo.bigadstv.data.remote.model.auth.login.response.LoginResponse
 import com.appsinvo.bigadstv.data.remote.model.auth.login.response.LogoutResponse
-import com.appsinvo.bigadstv.data.remote.model.error.apiResponse1.ApiErrorResponse
+import com.appsinvo.bigadstv.data.remote.model.common.error.apiResponse1.ApiErrorResponse
 import com.appsinvo.bigadstv.data.remote.networkUtils.NetworkResult
 import com.appsinvo.bigadstv.data.remote.networkUtils.handleUseCaseException
 import com.appsinvo.bigadstv.domain.repositories.AuthRepository

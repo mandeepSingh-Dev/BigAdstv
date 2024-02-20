@@ -21,19 +21,14 @@ import com.appsinvo.bigadstv.presentation.ui.dialogs.SettingsPopup
 import com.appsinvo.bigadstv.presentation.ui.viewmodels.AuthViewmodel
 import com.appsinvo.bigadstv.presentation.ui.viewmodels.HomeViewmodel
 import com.appsinvo.bigadstv.utils.ViewBottomScrollListener
-import com.appsinvo.bigadstv.utils.getHourOfDay
-import com.appsinvo.bigadstv.utils.get_Date_Of_UTC_Time
 import com.appsinvo.bigadstv.utils.inVisible
 import com.appsinvo.bigadstv.utils.showSnackbar
 import com.appsinvo.bigadstv.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.text.ParseException
-import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
-import java.util.Calendar
-import java.util.Locale
-import java.util.TimeZone
 
 
 @AndroidEntryPoint
@@ -45,12 +40,13 @@ class HomeFragment : BaseFragment() {
     private val authViewmodel : AuthViewmodel by viewModels()
     private val homeViewmodel : HomeViewmodel by viewModels()
 
-     private var popUpWindowDialog: SettingsPopup? = null
+     private var settingsPopup: SettingsPopup? = null
 
 
 
     private val adsAdapter : AdsAdapter by lazy {
-        AdsAdapter(onItemClick = {adsData ->
+        AdsAdapter(
+            onItemClick = {adsData ->
 
             val mlist = adsAdapter.currentList.toMutableList()
 
@@ -82,7 +78,7 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        popUpWindowDialog = SettingsPopup().createDropDown(requireContext(), onItemClick = { action ->
+        settingsPopup = SettingsPopup().createDropDown(requireContext(), onItemClick = { action ->
             performSettingsWindowAction(action = action)
         })
 
@@ -114,7 +110,11 @@ class HomeFragment : BaseFragment() {
 
     private fun setClickListeners(){
         binding.settingItem.setOnClickListener {
-            popUpWindowDialog?.showPopUp(binding.settingItem)
+          //  binding.settingItem.requestChildFocus(settingsPopup.)
+
+            settingsPopup?.showPopUp(binding.settingItem)
+
+
         }
         binding.notificationIcon.setOnClickListener {
             findNavController().navigate(R.id.notificationFragment)
@@ -254,16 +254,23 @@ class HomeFragment : BaseFragment() {
         homeViewmodel.allAdsResponse.collect{networkResult ->
             when(networkResult){
                 is NetworkResult.Loading -> {
-                    if(homeViewmodel.currentPage == 1)
-                    showLoading()
-                    else
+                    if(homeViewmodel.currentPage == 1) {
+                        if(adsAdapter.currentList.isEmpty()){
+                            binding.shimmerLayout.startShimmer()
+                        }else{
+                            showLoading()
+                        }
+                    }
+                    else {
                         binding.pagintationProgressBar.visible()
+                    }
                 }
                 is NetworkResult.Success ->{
                     hideLoading()
-
+                        binding.shimmerLayout.stopShimmer()
+                        binding.shimmerLayout.inVisible()
                         setData(networkResult)
-                               }
+                }
                 is NetworkResult.Error -> {
                     hideLoading()
                     binding.pagintationProgressBar.inVisible()
@@ -356,5 +363,4 @@ class HomeFragment : BaseFragment() {
               }
         }
     }
-
 }

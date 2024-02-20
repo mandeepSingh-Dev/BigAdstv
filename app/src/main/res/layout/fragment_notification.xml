@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/layout_padding"
+    android:focusable="true"
+    android:focusedByDefault="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.ui.fragments.NotificationFragment">
 
@@ -12,6 +14,8 @@
         android:layout_height="0dp"
         android:layout_marginRight="15dp"
         android:orientation="vertical"
+        android:focusedByDefault="true"
+        android:focusable="true"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/aboutCityImageBG"
@@ -21,7 +25,10 @@
             android:id="@+id/backBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="?android:attr/selectableItemBackground"
+            android:background="@drawable/stroke_state_selector"
+            android:padding="0dp"
+            android:focusable="true"
+            android:focusedByDefault="true"
             android:src="@drawable/back_arrow"
             />
 
@@ -75,14 +82,58 @@
 
 
         </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="5dp">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/notificationRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             tools:itemCount="10"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/notification_item"
-            android:text="@string/TXT_LBL_we_re_the_sales_performance_agency_we_re_been_helping_businesses_drive_revenue"/>
+            android:text="@string/TXT_LBL_we_re_the_sales_performance_agency_we_re_been_helping_businesses_drive_revenue"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
+            android:animationCache="true"
+            app:shimmer_repeat_mode="restart"
+            app:shimmer_shape="radial"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"  >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+                <include
+                    layout="@layout/shimmer_notification_layout"/>
+                <include
+                    layout="@layout/shimmer_notification_layout"/>
+                <include
+                    layout="@layout/shimmer_notification_layout"/>
+                <include
+                    layout="@layout/shimmer_notification_layout"/>
+                <include
+                    layout="@layout/shimmer_notification_layout"/>
+                <include
+                    layout="@layout/shimmer_notification_layout"/>
+
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </LinearLayout>
 
     <ImageView
@@ -94,6 +145,8 @@
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

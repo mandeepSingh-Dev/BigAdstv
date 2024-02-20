@@ -2,8 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    <solid
-        android:color="@color/color_state_pressed"/>
-    <corners
-        android:radius="20dp"/>
+    <stroke android:color="@color/color_state_focused2"
+        android:width="3dp"/>
+
 </shape>
