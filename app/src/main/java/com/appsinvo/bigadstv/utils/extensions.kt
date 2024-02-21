@@ -1,7 +1,6 @@
 package com.appsinvo.bigadstv.utils
 
 import android.app.Dialog
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
@@ -74,6 +73,8 @@ fun String.get_Formatted_UTC_Time(format : String = "yyyy-MM-dd'T'HH:mm:ss.SSSSS
     }
 }
 
+
+
 fun String.get_Date_Of_UTC_Time(format : String = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSXXX"): Date? {
 
     val isoFormat = SimpleDateFormat(format, Locale.getDefault())
@@ -92,8 +93,17 @@ fun Date.getHourOfDay(): Int {
     val cal = Calendar.getInstance()
     cal.timeInMillis = this.time
     return  cal.get(Calendar.HOUR_OF_DAY)
-
 }
+
+fun Int.isBetweenRange(startHr : Int, endHr : Int): Boolean? {
+    return try {
+        val currentHour = this
+         currentHour in startHr..endHr
+    } catch (e: Exception) {
+        null
+    }
+}
+
 
 
 

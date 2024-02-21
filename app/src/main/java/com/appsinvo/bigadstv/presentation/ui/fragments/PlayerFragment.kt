@@ -9,9 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.Player
+import androidx.media3.common.util.UnstableApi
 import androidx.media3.datasource.HttpDataSource
 import androidx.navigation.fragment.navArgs
 import coil.load
@@ -35,7 +37,7 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-@SuppressLint("SetTextI18n")
+@SuppressLint("SetTextI18n", "SuspiciousIndentation")
 @AndroidEntryPoint
 class PlayerFragment : BaseFragment() {
 
@@ -51,12 +53,13 @@ class PlayerFragment : BaseFragment() {
     private val homeViewmodel : HomeViewmodel by viewModels()
 
 
-        var username : TextView ? = null
-        var location : TextView ? = null
-        var userImageview : ImageView ? = null
-        var name : TextView ? = null
-        var dateTime: TextView ? = null
-        var videoTimer: TextView ? = null
+      private var controllerRootLayout : ConstraintLayout ? = null
+      private var username : TextView ? = null
+      private var location : TextView ? = null
+      private var userImageview : ImageView ? = null
+      private var name : TextView ? = null
+      private var dateTime: TextView ? = null
+      private var videoTimer: TextView ? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,7 +71,8 @@ class PlayerFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    @SuppressLint("ClickableViewAccessibility")
+    @androidx.annotation.OptIn(UnstableApi::class) override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
        // val adsData = navArgs.adsData
@@ -78,6 +82,7 @@ class PlayerFragment : BaseFragment() {
         }
         playerControllerIdBinding = PlayerControllerIdBinding.inflate(layoutInflater)
 
+        controllerRootLayout = view.findViewById(R.id.controller_root_layout)
         username = view.findViewById(R.id.username)
         location = view.findViewById(R.id.location)
         userImageview = view.findViewById(R.id.userImageview)
@@ -85,9 +90,11 @@ class PlayerFragment : BaseFragment() {
         dateTime= view.findViewById(R.id.dateTime)
         videoTimer= view.findViewById(R.id.videoTimer)
 
+        binding.root.setOnClickListener {
+            binding.playerView.controllerHideOnTouch =  true
+            if(binding.playerView.isControllerFullyVisible) binding.playerView.hideController() else binding.playerView.showController()
+        }
 
-       // binding.playerView.useController = false
-       // binding.playerView.addView(playerControllerIdBinding?.root)
 
     /*     binding.location.text
         binding.username.text = adsData.userId
@@ -134,8 +141,6 @@ class PlayerFragment : BaseFragment() {
                     error(R.drawable.user)
                 }
 
-
-
                 mExoplayer.currentStartTime = System.currentTimeMillis().toLong()
 
 
@@ -144,7 +149,6 @@ class PlayerFragment : BaseFragment() {
               /*   GlobalScope.launch {
                     homeViewmodel.trackAds(trackAdsRequestBody)
                 } */
-
 
             },
             onPlaybackStateChangedd = {playBackState, currentUri ->

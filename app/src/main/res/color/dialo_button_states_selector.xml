@@ -7,6 +7,6 @@
         /> <!-- focused -->
     <item android:state_hovered="true"
         android:color="#708BC34A" /> <!-- hovered -->
-    <item android:color="@color/colorPrimary" /> <!-- default -->
+    <item android:color="@color/black" /> <!-- default -->
 </selector>
 

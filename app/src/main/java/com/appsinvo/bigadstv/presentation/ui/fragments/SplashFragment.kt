@@ -58,7 +58,9 @@ class SplashFragment : BaseFragment() {
            lifecycleScope.launch {
                val isLogin = authViewmodel.isLogin()
                if(isLogin){
-                    navigateToHomeFragment()
+
+//                   navigateToHomeFragment()
+                   navigateToHomeMainScreenFragment()
                }else{
                   navigateToLoginFragment()
                }
@@ -72,6 +74,11 @@ class SplashFragment : BaseFragment() {
     }
     private fun navigateToHomeFragment(){
         val splashFragmentDirections = SplashFragmentDirections.actionSplashFragmentToHomeFragment2()
+        findNavController().navigate(splashFragmentDirections)
+    }
+    private fun navigateToHomeMainScreenFragment(){
+
+        val splashFragmentDirections = SplashFragmentDirections.actionSplashFragmentToHomeMainFragment()
         findNavController().navigate(splashFragmentDirections)
     }
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_home_nav_graph"
+    app:startDestination="@id/mainCategoriesFragment">
+
+    <fragment
+        android:id="@+id/adsFragment"
+        android:name="com.appsinvo.bigadstv.presentation.ui.fragments.AdsFragment"
+        android:label="Ads Fragment"
+        tools:layout="@layout/fragment_ads" />
+    <fragment
+        android:id="@+id/mainCategoriesFragment"
+        android:name="com.appsinvo.bigadstv.presentation.ui.fragments.MainCategoriesFragment"
+        android:label="fragment_main_categories"
+        tools:layout="@layout/fragment_main_categories" >
+        <action
+            android:id="@+id/action_mainCategoriesFragment_to_homeFragment2"
+            app:destination="@id/adsFragment" />
+    </fragment>
+</navigation>

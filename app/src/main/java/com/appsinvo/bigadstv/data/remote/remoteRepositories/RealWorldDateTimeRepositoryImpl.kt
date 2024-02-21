@@ -16,7 +16,6 @@ class RealWorldDateTimeRepositoryImpl @Inject constructor(private val realWorldD
     @SuppressLint("SuspiciousIndentation")
     override suspend fun getCurrentWorldTime(): NetworkResult<RealWorldDateTimeResponse> {
         return try{
-
             val response = realWorldDateTimeApiService.getCurrentWorldTime()
                NetworkResult.Success(data = response.body())
         }catch (e:Exception){

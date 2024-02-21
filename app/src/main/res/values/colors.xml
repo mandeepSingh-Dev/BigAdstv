@@ -11,4 +11,15 @@
     <color name="color_state_focused">#54FFFFFF</color>
     <color name="color_state_focused2">#FFEB3B</color>
 
+
+    <color name="purple1">#9621E8</color>
+    <color name="pink2">#D54B89</color>
+    <color name="pink3">#FE2C94</color>
+    <color name="blue">#445DF7</color>
+    <color name="green_dark">#5A9427</color>
+    <color name="yellow">#F1BA38</color>
+    <color name="orange">#FC8B1A</color>
+
+
+
 </resources>

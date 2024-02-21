@@ -3,25 +3,23 @@ package com.appsinvo.bigadstv.presentation.ui.viewmodels
 import DefaultPaginator
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import com.appsinvo.bigadstv.data.local.database.Dao.AdsDao
-import com.appsinvo.bigadstv.data.local.database.RoomDatabase.AppDatabase
 import com.appsinvo.bigadstv.data.remote.model.ads.getAllAds.response.AllAdsResponse
 import com.appsinvo.bigadstv.data.remote.model.ads.trackAds.requestBody.TrackAdsRequestBody
 import com.appsinvo.bigadstv.data.remote.model.ads.trackAds.response.TrackAdsResponse
-import com.appsinvo.bigadstv.data.remote.model.auth.login.response.LogoutResponse
 import com.appsinvo.bigadstv.data.remote.model.realWorldDateTime.RealWorldDateTimeResponse
 import com.appsinvo.bigadstv.data.remote.networkUtils.NetworkResult
 import com.appsinvo.bigadstv.domain.useCases.RealWorldDateTimeUseCase
 import com.appsinvo.bigadstv.domain.useCases.ads.AdsAllUseCases
 import com.appsinvo.bigadstv.utils.getHourOfDay
 import com.appsinvo.bigadstv.utils.get_Date_Of_UTC_Time
-import dagger.hilt.android.AndroidEntryPoint
+import com.appsinvo.bigadstv.utils.isBetweenRange
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import java.util.Date
 import javax.inject.Inject
 
 
@@ -74,19 +72,30 @@ class HomeViewmodel @Inject constructor(private val adsAllUseCases: AdsAllUseCas
 
 
     suspend fun trackAds(trackAdsRequestBody: TrackAdsRequestBody){
-      //  _trackAdsResponse.send(NetworkResult.Loading())
 
-      //  adsDao.insertTrackAd(trackAdsRequestBody = trackAdsRequestBody)
+        //Getting current world realtime Data-time from WorldApi.
+        val currentTimeResponse = getCurrentWorldDateTime()
 
-        val resp = getCurrentWorldDateTime()
-        if(resp is NetworkResult.Success){
-            val currentHour = resp.data?.datetime?.get_Date_Of_UTC_Time()?.getHourOfDay() ?: 9
+        //If World RealTIME Current Api is SUCCESS.
+       val isHourInRange = if(currentTimeResponse is NetworkResult.Success){
 
-            Log.d("currentHour_LoggingStats",currentHour.toString())
+            val currentHour = currentTimeResponse.data?.datetime?.get_Date_Of_UTC_Time()?.getHourOfDay() ?: 9
+           val isHourInRange = currentHour.isBetweenRange(startHr = 6, endHr = 9)
 
-            if(currentHour in 9..21){
-                val response = adsAllUseCases.trackAdUsecase(trackAdsRequestBody)
-            }
+           isHourInRange
+        }
+        //In case WorldApi response gets FAILED to get world time then get System current local time and hit userAd track api with local time.
+        else if(currentTimeResponse is NetworkResult.Error){
+            val currentHour = Date().getHourOfDay()
+            val isHourInRange = currentHour.isBetweenRange(startHr = 6, endHr = 9)
+
+           isHourInRange
+        }else {
+            false
+        }
+
+        if(isHourInRange == true){
+            val response = adsAllUseCases.trackAdUsecase(trackAdsRequestBody)
         }
       //  _trackAdsResponse.send(response)
     }

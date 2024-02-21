@@ -6,12 +6,12 @@
         <type value="RUNNING_DEVICE_TARGET" />
         <deviceKey>
           <Key>
-            <type value="SERIAL_NUMBER" />
-            <value value="192.168.1.34:41913" />
+            <type value="VIRTUAL_DEVICE_PATH" />
+            <value value="C:\Users\Lenovo\.android\avd\Television_1080p_API_34.avd" />
           </Key>
         </deviceKey>
       </Target>
     </runningDeviceTargetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2024-02-20T11:52:40.770395300Z" />
+    <timeTargetWasSelectedWithDropDown value="2024-02-21T08:51:10.463161100Z" />
   </component>
 </project>

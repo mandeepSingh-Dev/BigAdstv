@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="20dp"
-    android:background="@drawable/background"
+    android:background="@drawable/background_small"
     android:orientation="vertical">
 
 
@@ -19,7 +19,7 @@
          android:id="@+id/contentMessage"
          android:layout_width="match_parent"
         android:layout_height="wrap_content"
-         android:layout_marginTop="15dp"
+         android:layout_marginTop="2dp"
          android:textSize="@dimen/_15sdp"
          android:text="@string/TXT_LBL_Are_you_sure_you_want_to_exit"/>
 
@@ -27,6 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginTop="15dp"
         android:layout_gravity="end"
         >
 
@@ -40,6 +41,7 @@
             android:text="@string/TXT_LBL_no"
             android:textColor="@color/white"
             />
+
         <View
             android:layout_width="10dp"
             android:layout_height="0dp"/>

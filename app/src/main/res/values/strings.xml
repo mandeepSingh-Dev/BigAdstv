@@ -24,5 +24,9 @@
     <string name="TXT_LBL_Are_you_sure_you_want_to_exit">Are you sure you want to exit?</string>
     <string name="TXT_LBL_yes">Yes</string>
     <string name="TXT_LBL_no">No</string>
+    <string name="TXT_LBL_ads">Ads</string>
+    <string name="TXT_LBL_news">News</string>
+    <string name="TXT_LBL_reels">Reels</string>
+    <string name="TXT_LBL_popups">Popups</string>
 
 </resources>
