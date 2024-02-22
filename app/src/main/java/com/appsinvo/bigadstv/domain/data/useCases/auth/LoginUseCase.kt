@@ -1,11 +1,11 @@
-package com.appsinvo.bigadstv.domain.useCases.auth
+package com.appsinvo.bigadstv.domain.data.useCases.auth
 
 import android.annotation.SuppressLint
 import android.content.Context
 import com.appsinvo.bigadstv.data.remote.model.auth.login.requestBody.LoginRequestBody
 import com.appsinvo.bigadstv.data.remote.model.auth.login.response.LoginResponse
 import com.appsinvo.bigadstv.data.remote.networkUtils.NetworkResult
-import com.appsinvo.bigadstv.domain.repositories.AuthRepository
+import com.appsinvo.bigadstv.domain.data.repositories.AuthRepository
 import com.appsinvo.bigadstv.utils.isEmailValid
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject

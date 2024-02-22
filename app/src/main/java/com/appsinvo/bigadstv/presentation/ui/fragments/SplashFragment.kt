@@ -13,10 +13,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.appsinvo.bigadstv.R
 import com.appsinvo.bigadstv.base.BaseFragment
+import com.appsinvo.bigadstv.data.local.database.Dao.AdsDao
 import com.appsinvo.bigadstv.databinding.FragmentSplashBinding
 import com.appsinvo.bigadstv.presentation.ui.viewmodels.AuthViewmodel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -26,6 +29,9 @@ class SplashFragment : BaseFragment() {
     val binding : FragmentSplashBinding get() = _binding!!
 
     val authViewmodel : AuthViewmodel by viewModels()
+
+    @Inject
+    lateinit var adsDao : AdsDao
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,14 +50,13 @@ class SplashFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         val logoUri = Uri.parse("android.resource://" + requireContext().packageName + "/" + R.raw.bigads_tv_animation_logo)
 
       binding.videoView.setVideoURI(logoUri)
 
         val mediaController = MediaController(requireContext())
-        mediaController.setAnchorView(binding?.videoView)
-        mediaController.setMediaPlayer(binding?.videoView)
+        mediaController.setAnchorView(binding.videoView)
+        mediaController.setMediaPlayer(binding.videoView)
         binding.videoView.start()
        binding.videoView.setOnCompletionListener {
 

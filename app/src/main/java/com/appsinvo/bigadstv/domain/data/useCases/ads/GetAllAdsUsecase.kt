@@ -1,12 +1,12 @@
-package com.appsinvo.bigadstv.domain.useCases.ads
+package com.appsinvo.bigadstv.domain.data.useCases.ads
 
 import com.appsinvo.bigadstv.data.remote.model.ads.getAllAds.response.AllAdsResponse
 import com.appsinvo.bigadstv.data.remote.model.ads.trackAds.requestBody.TrackAdsRequestBody
 import com.appsinvo.bigadstv.data.remote.model.ads.trackAds.response.TrackAdsResponse
 import com.appsinvo.bigadstv.data.remote.model.auth.login.response.LogoutResponse
 import com.appsinvo.bigadstv.data.remote.networkUtils.NetworkResult
-import com.appsinvo.bigadstv.domain.repositories.AdsRepository
-import com.appsinvo.bigadstv.domain.repositories.AuthRepository
+import com.appsinvo.bigadstv.domain.data.repositories.AdsRepository
+import com.appsinvo.bigadstv.domain.data.repositories.AuthRepository
 import javax.inject.Inject
 
 

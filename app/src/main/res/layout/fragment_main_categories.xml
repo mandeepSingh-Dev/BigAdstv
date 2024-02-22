@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context=".presentation.ui.fragments.MainCategoriesFragment">
+    tools:context=".presentation.ui.fragments.HomeMainScreenFragments.MainCategoriesFragment">
 
 
     <ScrollView
@@ -46,6 +46,7 @@
                         android:layout_gravity="center"
                         android:background="@drawable/gradient_ads_main_element"
                         android:gravity="center">
+
 
                         <TextView
                             android:layout_width="wrap_content"

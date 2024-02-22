@@ -6,11 +6,12 @@ import com.appsinvo.bigadstv.data.remote.model.common.error.apiResponse1.ApiErro
 import com.appsinvo.bigadstv.data.remote.model.common.notifications.NotificationResponse
 import com.appsinvo.bigadstv.data.remote.networkUtils.NetworkResult
 import com.appsinvo.bigadstv.data.remote.networkUtils.handleUseCaseException
-import com.appsinvo.bigadstv.domain.repositories.CommonRepository
+import com.appsinvo.bigadstv.domain.data.repositories.CommonRepository
 import com.appsinvo.bigadstv.utils.GsonHelper.Companion.fromJson
 import javax.inject.Inject
 
-class CommonRepositoryImpl @Inject constructor(private val commonServices: CommonServices) : CommonRepository {
+class CommonRepositoryImpl @Inject constructor(private val commonServices: CommonServices) :
+    CommonRepository {
 
     override suspend fun getNotifications(): NetworkResult<NotificationResponse> {
             return try {

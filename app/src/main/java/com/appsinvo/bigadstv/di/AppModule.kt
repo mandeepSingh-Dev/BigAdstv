@@ -5,8 +5,16 @@ import androidx.room.Room
 import com.appsinvo.bigadstv.data.local.database.Dao.AdsDao
 import com.appsinvo.bigadstv.data.local.database.RoomDatabase.AppDatabase
 import com.appsinvo.bigadstv.data.local.database.dbUtils.ConstantsDatabase
+import com.appsinvo.bigadstv.data.local.database.repository.TrackAdsRepositoryImpl
 import com.appsinvo.bigadstv.data.local.datastore.AppDatastore
 import com.appsinvo.bigadstv.data.local.datastore.DatastoreManager
+import com.appsinvo.bigadstv.domain.local.repositories.TracksAdsRepository
+import com.appsinvo.bigadstv.domain.local.useCases.tracksAds.AllTrackAdsUsecases
+import com.appsinvo.bigadstv.domain.local.useCases.tracksAds.DeleteAllUserTrackAdsUsecase
+import com.appsinvo.bigadstv.domain.local.useCases.tracksAds.DeleteTrackAdUsecase
+import com.appsinvo.bigadstv.domain.local.useCases.tracksAds.GetAllUserTrackAdsUsecase
+import com.appsinvo.bigadstv.domain.local.useCases.tracksAds.GetUserTrackAdUsercase
+import com.appsinvo.bigadstv.domain.local.useCases.tracksAds.InsertTrackAdUsecase
 import com.appsinvo.bigadstv.presentation.ui.dialogs.ProgressDialog
 import dagger.Module
 import dagger.Provides
@@ -32,6 +40,21 @@ object AppModule {
     @Provides
     @Singleton
     fun provideAdsDao(appDatabase: AppDatabase) : AdsDao = appDatabase.getAdsDao()
+
+    @Provides
+    @Singleton
+    fun provideTrackAdsRepository(trackAdsRepositoryImpl: TrackAdsRepositoryImpl) : TracksAdsRepository = trackAdsRepositoryImpl
+
+
+    @Provides
+    fun providesTrackAdsUsecases(
+        deleteAllUserTrackAdsUsecase: DeleteAllUserTrackAdsUsecase,
+        deleteTrackAdUsecase: DeleteTrackAdUsecase,
+        getAllUserTrackAdsUsecase: GetAllUserTrackAdsUsecase,
+        insertTrackAdUsecase: InsertTrackAdUsecase,
+        getUserTrackAdUsercase: GetUserTrackAdUsercase,
+    ) : AllTrackAdsUsecases = AllTrackAdsUsecases(deleteAllUserTrackAdsUsecase = deleteAllUserTrackAdsUsecase, deleteTrackAdUsecase = deleteTrackAdUsecase, getAllUserTrackAdsUsecase = getAllUserTrackAdsUsecase, insertTrackAdUsecase =  insertTrackAdUsecase, getUserTrackAdUsecase = getUserTrackAdUsercase)
+
 
     @Provides
     fun provideProgressDialog() = ProgressDialog()

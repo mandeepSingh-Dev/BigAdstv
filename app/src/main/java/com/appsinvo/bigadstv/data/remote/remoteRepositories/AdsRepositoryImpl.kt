@@ -9,7 +9,7 @@ import com.appsinvo.bigadstv.data.remote.model.auth.login.response.LogoutRespons
 import com.appsinvo.bigadstv.data.remote.model.common.error.apiResponse1.ApiErrorResponse
 import com.appsinvo.bigadstv.data.remote.networkUtils.NetworkResult
 import com.appsinvo.bigadstv.data.remote.networkUtils.handleUseCaseException
-import com.appsinvo.bigadstv.domain.repositories.AdsRepository
+import com.appsinvo.bigadstv.domain.data.repositories.AdsRepository
 import com.appsinvo.bigadstv.utils.GsonHelper.Companion.fromJson
 import retrofit2.Response
 import javax.inject.Inject

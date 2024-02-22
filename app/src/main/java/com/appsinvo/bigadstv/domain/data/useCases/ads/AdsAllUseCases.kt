@@ -1,4 +1,4 @@
-package com.appsinvo.bigadstv.domain.useCases.ads
+package com.appsinvo.bigadstv.domain.data.useCases.ads
 
 data class AdsAllUseCases(
     val getAllAdsUsecase : GetAllAdsUsecase,

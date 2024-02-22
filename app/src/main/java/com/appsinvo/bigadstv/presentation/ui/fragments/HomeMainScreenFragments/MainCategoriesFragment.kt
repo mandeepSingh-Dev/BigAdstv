@@ -1,5 +1,7 @@
-package com.appsinvo.bigadstv.presentation.ui.fragments
+package com.appsinvo.bigadstv.presentation.ui.fragments.HomeMainScreenFragments
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -41,5 +43,7 @@ class MainCategoriesFragment : BaseFragment() {
         binding.popupsCategoryCardViewId.setOnClickListener {
             findNavController().navigate(R.id.adsFragment)
         }
+
+
     }
 }

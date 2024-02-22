@@ -1,4 +1,4 @@
-package com.appsinvo.bigadstv.domain.repositories
+package com.appsinvo.bigadstv.domain.data.repositories
 
 import com.appsinvo.bigadstv.data.remote.model.ads.getAllAds.response.AllAdsResponse
 import com.appsinvo.bigadstv.data.remote.model.ads.trackAds.requestBody.TrackAdsRequestBody

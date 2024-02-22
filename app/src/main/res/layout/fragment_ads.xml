@@ -6,7 +6,7 @@
     android:fillViewport="true"
     android:animateLayoutChanges="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.ui.fragments.AdsFragment">
+    tools:context=".presentation.ui.fragments.HomeMainScreenFragments.AdsFragment">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

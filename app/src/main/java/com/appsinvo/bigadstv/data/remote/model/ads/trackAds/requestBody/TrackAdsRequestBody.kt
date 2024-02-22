@@ -9,7 +9,7 @@ import com.appsinvo.bigadstv.data.local.database.dbUtils.ConstantsDatabase
 data class TrackAdsRequestBody(
     val advertisementId: String,
     val endTime: String?,
-    val id: String?,
+    val id: String?=null,
     val startTime: String?,
     val watchTime: Int?
 )

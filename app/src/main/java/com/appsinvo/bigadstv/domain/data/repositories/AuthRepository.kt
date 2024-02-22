@@ -1,4 +1,4 @@
-package com.appsinvo.bigadstv.domain.repositories
+package com.appsinvo.bigadstv.domain.data.repositories
 
 import com.appsinvo.bigadstv.data.remote.model.auth.login.requestBody.LoginRequestBody
 import com.appsinvo.bigadstv.data.remote.model.auth.login.response.LoginResponse

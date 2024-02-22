@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.appsinvo.bigadstv.presentation.ui.fragments.AdsFragment"
+        android:name="com.appsinvo.bigadstv.presentation.ui.fragments.HomeMainScreenFragments.AdsFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_ads" >
         <action

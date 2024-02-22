@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/adsFragment"
-        android:name="com.appsinvo.bigadstv.presentation.ui.fragments.AdsFragment"
+        android:name="com.appsinvo.bigadstv.presentation.ui.fragments.HomeMainScreenFragments.AdsFragment"
         android:label="Ads Fragment"
         tools:layout="@layout/fragment_ads" />
     <fragment
         android:id="@+id/mainCategoriesFragment"
-        android:name="com.appsinvo.bigadstv.presentation.ui.fragments.MainCategoriesFragment"
+        android:name="com.appsinvo.bigadstv.presentation.ui.fragments.HomeMainScreenFragments.MainCategoriesFragment"
         android:label="fragment_main_categories"
         tools:layout="@layout/fragment_main_categories" >
         <action

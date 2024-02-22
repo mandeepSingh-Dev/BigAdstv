@@ -10,8 +10,8 @@ import com.appsinvo.bigadstv.data.remote.model.ads.trackAds.requestBody.TrackAds
 import com.appsinvo.bigadstv.data.remote.model.ads.trackAds.response.TrackAdsResponse
 import com.appsinvo.bigadstv.data.remote.model.realWorldDateTime.RealWorldDateTimeResponse
 import com.appsinvo.bigadstv.data.remote.networkUtils.NetworkResult
-import com.appsinvo.bigadstv.domain.useCases.RealWorldDateTimeUseCase
-import com.appsinvo.bigadstv.domain.useCases.ads.AdsAllUseCases
+import com.appsinvo.bigadstv.domain.data.useCases.RealWorldDateTimeUseCase
+import com.appsinvo.bigadstv.domain.data.useCases.ads.AdsAllUseCases
 import com.appsinvo.bigadstv.utils.getHourOfDay
 import com.appsinvo.bigadstv.utils.get_Date_Of_UTC_Time
 import com.appsinvo.bigadstv.utils.isBetweenRange
@@ -79,15 +79,14 @@ class HomeViewmodel @Inject constructor(private val adsAllUseCases: AdsAllUseCas
         //If World RealTIME Current Api is SUCCESS.
        val isHourInRange = if(currentTimeResponse is NetworkResult.Success){
 
-            val currentHour = currentTimeResponse.data?.datetime?.get_Date_Of_UTC_Time()?.getHourOfDay() ?: 9
-           val isHourInRange = currentHour.isBetweenRange(startHr = 6, endHr = 9)
-
+           val currentHour = currentTimeResponse.data?.datetime?.get_Date_Of_UTC_Time()?.getHourOfDay() ?: 9
+           val isHourInRange = currentHour.isBetweenRange(startHr = 6, endHr = 21)
            isHourInRange
         }
         //In case WorldApi response gets FAILED to get world time then get System current local time and hit userAd track api with local time.
         else if(currentTimeResponse is NetworkResult.Error){
             val currentHour = Date().getHourOfDay()
-            val isHourInRange = currentHour.isBetweenRange(startHr = 6, endHr = 9)
+            val isHourInRange = currentHour.isBetweenRange(startHr = 6, endHr = 21)
 
            isHourInRange
         }else {
@@ -101,7 +100,9 @@ class HomeViewmodel @Inject constructor(private val adsAllUseCases: AdsAllUseCas
     }
 
     suspend fun getCurrentWorldDateTime(): NetworkResult<RealWorldDateTimeResponse> {
-       return realWorldDateTimeUseCase()
+       val response = realWorldDateTimeUseCase()
+        Log.d("vlkvnkfjvn",response.toString())
+        return  response
     }
 
 }

@@ -1,4 +1,4 @@
-package com.appsinvo.bigadstv.domain.useCases.auth
+package com.appsinvo.bigadstv.domain.data.useCases.auth
 
 data class AuthAllUseCases(
     val loginUseCase: LoginUseCase,

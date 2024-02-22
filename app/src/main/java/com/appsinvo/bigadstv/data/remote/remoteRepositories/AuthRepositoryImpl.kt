@@ -10,13 +10,14 @@ import com.appsinvo.bigadstv.data.remote.model.auth.login.response.LogoutRespons
 import com.appsinvo.bigadstv.data.remote.model.common.error.apiResponse1.ApiErrorResponse
 import com.appsinvo.bigadstv.data.remote.networkUtils.NetworkResult
 import com.appsinvo.bigadstv.data.remote.networkUtils.handleUseCaseException
-import com.appsinvo.bigadstv.domain.repositories.AuthRepository
+import com.appsinvo.bigadstv.domain.data.repositories.AuthRepository
 import com.appsinvo.bigadstv.utils.GsonHelper
 import com.appsinvo.bigadstv.utils.GsonHelper.Companion.fromJson
 import com.google.gson.GsonBuilder
 import javax.inject.Inject
 
-class AuthRepositoryImpl @Inject constructor(private val authService: AuthService, private val appDataStore : AppDatastore) : AuthRepository{
+class AuthRepositoryImpl @Inject constructor(private val authService: AuthService, private val appDataStore : AppDatastore) :
+    AuthRepository {
     override suspend fun login(loginRequestBody: LoginRequestBody): NetworkResult<LoginResponse> {
       return try{
 

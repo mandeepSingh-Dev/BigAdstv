@@ -1,4 +1,4 @@
-package com.appsinvo.bigadstv.presentation.ui.fragments
+package com.appsinvo.bigadstv.presentation.ui.fragments.HomeMainScreenFragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
-import androidx.navigation.NavGraph
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
@@ -21,6 +20,7 @@ import com.appsinvo.bigadstv.data.remote.networkUtils.NetworkResult
 import com.appsinvo.bigadstv.databinding.FragmentAdsBinding
 import com.appsinvo.bigadstv.presentation.ui.adapters.AdsAdapter
 import com.appsinvo.bigadstv.presentation.ui.dialogs.SettingsPopup
+import com.appsinvo.bigadstv.presentation.ui.fragments.HomeMainFragmentDirections
 import com.appsinvo.bigadstv.presentation.ui.viewmodels.AuthViewmodel
 import com.appsinvo.bigadstv.presentation.ui.viewmodels.HomeViewmodel
 import com.appsinvo.bigadstv.utils.ViewBottomScrollListener
@@ -31,7 +31,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 
-@SuppressLint("ResourceType")
+@SuppressLint("ResourceType", "SuspiciousIndentation")
 @AndroidEntryPoint
 class AdsFragment : BaseFragment() {
 
@@ -40,8 +40,6 @@ class AdsFragment : BaseFragment() {
 
     private val authViewmodel : AuthViewmodel by viewModels()
     private val homeViewmodel : HomeViewmodel by viewModels()
-
-     private var settingsPopup: SettingsPopup? = null
 
     private var navControllerParent : NavController? = null
 
@@ -62,19 +60,13 @@ class AdsFragment : BaseFragment() {
                 modifiedList.add(mlist[i])
             }
 
-            val action = HomeMainFragmentDirections.actionHomeMainFragmentToPlayerFragment(modifiedList.toTypedArray())
+            val action =
+                HomeMainFragmentDirections.actionHomeMainFragmentToPlayerFragment(modifiedList.toTypedArray())
                 navControllerParent?.navigate(action)
 
         })
     }
 
-    /*   binding.settingItem.setOnClickListener {
-              //  binding.settingItem.requestChildFocus(settingsPopup.)
-                settingsPopup?.showPopUp(binding.settingItem)
-            }
-            binding.notificationIcon.setOnClickListener {
-                findNavController().navigate(R.id.notificationFragment)
-            } */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -87,48 +79,12 @@ class AdsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val navController_parent =  Navigation.findNavController(requireActivity(), R.id.my_nav_host_fragment)
-
-
-        settingsPopup = SettingsPopup().createDropDown(requireContext(), onItemClick = { action ->
-            performSettingsWindowAction(action = action)
-        })
-
-        setClickListeners()
-
-
-        lifecycleScope.launch {
-            observeLogoutApiResponse()
-        }
+        navControllerParent =  Navigation.findNavController(requireActivity(), R.id.my_nav_host_fragment)
 
         lifecycleScope.launch {
             observeGetAllAdsApiResponse()
         }
-
         setUpAdsRecyclerView()
-    }
-
-    private fun setClickListeners(){
-
-    }
-
-    private fun performSettingsWindowAction(action : String){
-        when(action){
-            SettingsPopup.SettingsPopupItemAction.ABOUT_CITI_PRIME_BROADCASTING.toString() -> {}
-            SettingsPopup.SettingsPopupItemAction.UPDATE.toString() -> {
-
-                lifecycleScope.launch {
-                    homeViewmodel.currentPage = 1
-                    homeViewmodel.totalCount = 0
-                    homeViewmodel.getAllAds(page = homeViewmodel.currentPage.toString(), adType = "")
-                }
-            }
-            SettingsPopup.SettingsPopupItemAction.LOGOUT.toString() -> {
-                lifecycleScope.launch {
-                    authViewmodel.logout()
-                }
-            }
-        }
     }
 
     private fun setUpAdsRecyclerView(){
@@ -145,23 +101,6 @@ class AdsFragment : BaseFragment() {
         })
     }
 
-    private suspend fun observeLogoutApiResponse(){
-        authViewmodel.logoutResponse.collect{networkResult ->
-            when(networkResult){
-                is NetworkResult.Loading -> {
-                    showLoading()
-                }
-                is NetworkResult.Success ->{
-                    hideLoading()
-                    navigateToLoginFragment()
-                }
-
-                is NetworkResult.Error -> {
-                    hideLoading()
-                }
-            }
-        }
-    }
 
     var firstAD : AdsData? = null
     var secondAD : AdsData? = null
@@ -199,10 +138,6 @@ class AdsFragment : BaseFragment() {
         }
     }
 
-    private fun navigateToLoginFragment(){
-        val navOptions= NavOptions.Builder().setPopUpTo(R.id.nav_graph,true).build()
-        findNavController().navigate(R.id.loginFragment,null,navOptions)
-    }
 
     private fun setData(networkResult: NetworkResult.Success<AllAdsResponse>) {
         val page = networkResult.data?.data?.page

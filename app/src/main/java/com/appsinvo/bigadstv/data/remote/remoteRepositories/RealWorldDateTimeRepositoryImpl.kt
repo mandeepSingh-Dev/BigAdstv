@@ -7,11 +7,12 @@ import com.appsinvo.bigadstv.data.remote.apiServices.RealWorldTimeApiService
 import com.appsinvo.bigadstv.data.remote.model.realWorldDateTime.RealWorldDateTimeResponse
 import com.appsinvo.bigadstv.data.remote.networkUtils.NetworkResult
 import com.appsinvo.bigadstv.data.remote.networkUtils.handleUseCaseException
-import com.appsinvo.bigadstv.domain.repositories.RealWorldDateTimeRepository
+import com.appsinvo.bigadstv.domain.data.repositories.RealWorldDateTimeRepository
 
 import javax.inject.Inject
 
-class RealWorldDateTimeRepositoryImpl @Inject constructor(private val realWorldDateTimeApiService: RealWorldTimeApiService) : RealWorldDateTimeRepository {
+class RealWorldDateTimeRepositoryImpl @Inject constructor(private val realWorldDateTimeApiService: RealWorldTimeApiService) :
+    RealWorldDateTimeRepository {
 
     @SuppressLint("SuspiciousIndentation")
     override suspend fun getCurrentWorldTime(): NetworkResult<RealWorldDateTimeResponse> {

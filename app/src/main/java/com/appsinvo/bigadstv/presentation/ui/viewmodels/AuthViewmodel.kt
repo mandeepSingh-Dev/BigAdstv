@@ -8,7 +8,7 @@ import com.appsinvo.bigadstv.data.remote.model.auth.login.response.LoginResponse
 import com.appsinvo.bigadstv.data.remote.model.auth.login.response.LoginResponseData
 import com.appsinvo.bigadstv.data.remote.model.auth.login.response.LogoutResponse
 import com.appsinvo.bigadstv.data.remote.networkUtils.NetworkResult
-import com.appsinvo.bigadstv.domain.useCases.auth.AuthAllUseCases
+import com.appsinvo.bigadstv.domain.data.useCases.auth.AuthAllUseCases
 import com.appsinvo.bigadstv.utils.GsonHelper
 import com.appsinvo.bigadstv.utils.GsonHelper.Companion.fromJson
 import dagger.hilt.android.lifecycle.HiltViewModel

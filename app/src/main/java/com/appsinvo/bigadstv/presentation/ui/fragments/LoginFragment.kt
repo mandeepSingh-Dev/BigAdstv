@@ -78,8 +78,7 @@ class LoginFragment : BaseFragment() {
                 }
                 is NetworkResult.Success -> {
                     hideLoading()
-                    val action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
-                    findNavController().navigate(action)
+                    navigateToHomeMainScreenFragment()
                 }
                 is NetworkResult.Error -> {
                     hideLoading()
@@ -87,6 +86,17 @@ class LoginFragment : BaseFragment() {
                 }
             }
         }
+    }
+
+
+    fun navigateToHomeScreen(){
+        val action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
+        findNavController().navigate(action)
+    }
+    private fun navigateToHomeMainScreenFragment(){
+
+        val splashFragmentDirections = SplashFragmentDirections.actionSplashFragmentToHomeMainFragment()
+        findNavController().navigate(splashFragmentDirections)
     }
 
 }

@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.appsinvo.bigadstv.data.remote.model.common.notifications.NotificationResponse
 import com.appsinvo.bigadstv.data.remote.networkUtils.NetworkResult
-import com.appsinvo.bigadstv.domain.useCases.common.AllCommonUseCases
+import com.appsinvo.bigadstv.domain.data.useCases.common.AllCommonUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow

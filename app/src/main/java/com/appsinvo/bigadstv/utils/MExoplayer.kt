@@ -18,7 +18,8 @@ class MExoplayer(val onEventss: (Player, Player.Events) -> Unit,
                  val onPlaybackStateChangedd: (Int, String) -> Unit,
                  val onIsPlayingChangedd : (Boolean) -> Unit,
                  val onPlayerErrorr : (PlaybackException) -> Unit,
-    val onTimer: (Long)->Unit
+    val onTimer: (Long)->Unit,
+    val onTimerFor2SecondsInterval: (Long,String) -> Unit
 )
 
 {
@@ -100,7 +101,7 @@ class MExoplayer(val onEventss: (Player, Player.Events) -> Unit,
         player.removeListener(playerListener)
     }
 
-    fun releaseplayer(){
+    fun releasePlayer(){
 
         player.stop()
         player.release()
@@ -111,6 +112,7 @@ class MExoplayer(val onEventss: (Player, Player.Events) -> Unit,
 
 
     var videoWatchedTime = 0L
+    var video2SecondsIntervalTime = 0L
     var currentStartTime = 0L
     val handler = Handler(Looper.getMainLooper())
 
@@ -121,11 +123,32 @@ class MExoplayer(val onEventss: (Player, Player.Events) -> Unit,
 
                 Log.d("fvlfkvf",videoWatchedTime.toString())
 
-onTimer(videoWatchedTime)
+                onTimer(videoWatchedTime)
                 handler.postDelayed(this, 1000) // Update SeekBar every second
             }
         }, 0)
+    }
 
+    fun getTotalDuration(): Long {
+        return player.duration
+    }
+
+    fun startTimerFor2SecondsInterval(){
+
+        handler.postDelayed(object : Runnable {
+            override fun run() {
+                videoWatchedTime = player.currentPosition / 1000
+
+                Log.d("fvlfkvf",video2SecondsIntervalTime.toString())
+
+                onTimerFor2SecondsInterval(videoWatchedTime, currentItem.toString())
+                handler.postDelayed(this, 2000) // Update SeekBar every second
+            }
+        }, 0)
+    }
+
+    fun seekToPosition(position : Long){
+        player.seekTo(position)
     }
 
 }
