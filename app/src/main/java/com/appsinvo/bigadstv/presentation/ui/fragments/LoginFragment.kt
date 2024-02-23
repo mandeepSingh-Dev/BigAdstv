@@ -5,6 +5,7 @@ import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.MimeTypeMap
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -95,7 +96,7 @@ class LoginFragment : BaseFragment() {
     }
     private fun navigateToHomeMainScreenFragment(){
 
-        val splashFragmentDirections = SplashFragmentDirections.actionSplashFragmentToHomeMainFragment()
+        val splashFragmentDirections = LoginFragmentDirections.actionLoginFragmentToHomeMainFragment()
         findNavController().navigate(splashFragmentDirections)
     }
 

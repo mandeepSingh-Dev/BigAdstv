@@ -6,7 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.ui.fragments.PlayerFragment">
 
-
     <VideoView
         android:id="@+id/videoView"
         android:layout_width="match_parent"

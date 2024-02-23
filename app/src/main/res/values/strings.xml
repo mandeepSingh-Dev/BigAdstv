@@ -28,5 +28,10 @@
     <string name="TXT_LBL_news">News</string>
     <string name="TXT_LBL_reels">Reels</string>
     <string name="TXT_LBL_popups">Popups</string>
+    <string name="TXT_LBL_notifications">Notifications</string>
+    <string name="TXT_LBL_total_price_feb">Total Price(Feb):</string>
+    <string name="TXT_LBL_we_will_count_for_payout_for_minimum_6_hours_on_daily_basis">We will count for payout for minimum 6 hours on daily basis.</string>
+    <string name="TXT_LBL_note">Note:</string>
+    <string name="TXT_LBL_my_earnings">My Earnings</string>
 
 </resources>

@@ -10,56 +10,23 @@ import android.view.ViewGroup
 import android.widget.PopupWindow
 import androidx.appcompat.R.*
 import com.appsinvo.bigadstv.databinding.SettingsPopupLayoutBinding
+import com.appsinvo.bigadstv.utils.inVisible
+import com.appsinvo.bigadstv.utils.visible
 
 
 class SettingsPopup  {
 
     private var popupWindow : PopupWindow? = null
+    private var settingsPopupLayoutBinding : SettingsPopupLayoutBinding? = null
 
     @SuppressLint("UseCompatLoadingForDrawables", "ClickableViewAccessibility")
     fun  createDropDown(context: Context, onItemClick : (String) -> Unit): SettingsPopup {
 
-        val settingsPopupLayoutBinding = SettingsPopupLayoutBinding.inflate(LayoutInflater.from(context))
+         settingsPopupLayoutBinding = SettingsPopupLayoutBinding.inflate(LayoutInflater.from(context))
 
-        popupWindow = PopupWindow(settingsPopupLayoutBinding.root, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true)
+        popupWindow = PopupWindow(settingsPopupLayoutBinding?.root, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true)
 
-        settingsPopupLayoutBinding.aboutCitiBroadcast.setOnFocusChangeListener { v, hasFocus ->
-            Log.d("Dvlvmkfvf",v.measuredState.toString())
-            v.drawableState.forEach {
-                Log.d("Fvlfmnvkfnvf",it.toString())
-            }
 
-        }
-        settingsPopupLayoutBinding.aboutCitiBroadcast.setOnFocusChangeListener { v, hasFocus ->
-            Log.d("Dvlvmkfvf",v.measuredState.toString())
-            v.drawableState.forEach {
-                Log.d("Fvlfmnvkfnvf",it.toString())
-            }
-
-        }
-        settingsPopupLayoutBinding.aboutCitiBroadcast.setOnFocusChangeListener { v, hasFocus ->
-            Log.d("Dvlvmkfvf",v.measuredState.toString())
-            v.drawableState.forEach {
-                Log.d("Fvlfmnvkfnvf",it.toString())
-            }
-
-        }
-
-        settingsPopupLayoutBinding.update.setOnHoverListener { v, event ->
-
-            Log.d("mvkmvf","update Hovered")
-            return@setOnHoverListener true
-        }
-   settingsPopupLayoutBinding.logout.setOnHoverListener { v, event ->
-
-            Log.d("mvkmvf","login Hovered")
-            return@setOnHoverListener true
-        }
-   settingsPopupLayoutBinding.aboutCitiBroadcast.setOnHoverListener { v, event ->
-
-            Log.d("mvkmvf","about Hovered")
-            return@setOnHoverListener true
-        }
 
         // Set background for touch outside to dismiss
 //        popupWindow?.setBackgroundDrawable(context.resources.getDrawable(R.color.lightGrey,null))
@@ -68,43 +35,34 @@ class SettingsPopup  {
 
 
 
-        settingsPopupLayoutBinding.logout.setOnClickListener {
+        settingsPopupLayoutBinding?.logout?.setOnClickListener {
             onItemClick(SettingsPopupItemAction.LOGOUT.toString())
             dismiss()
 
         }
-        settingsPopupLayoutBinding.update.setOnClickListener {
+        settingsPopupLayoutBinding?.update?.setOnClickListener {
             onItemClick(SettingsPopupItemAction.UPDATE.toString())
             dismiss()
         }
-        settingsPopupLayoutBinding.aboutCitiBroadcast.setOnClickListener {
+        settingsPopupLayoutBinding?.aboutCitiBroadcast?.setOnClickListener {
             onItemClick(SettingsPopupItemAction.ABOUT_CITI_PRIME_BROADCASTING.toString())
             dismiss()
         }
-
-        settingsPopupLayoutBinding.aboutCitiBroadcast.setOnTouchListener { v, event ->
-
-            Log.d("flvjfkvnf",event.action.toString())
-
-            return@setOnTouchListener true
-        }
-
-        settingsPopupLayoutBinding.aboutCitiBroadcast.setOnHoverListener { v, event ->
-            Log.d("flvjkfnvf",event.action.toString() + " about")
-            return@setOnHoverListener true
-        }
-  settingsPopupLayoutBinding.update.setOnHoverListener { v, event ->
-            Log.d("flvjkfnvf",event.action.toString() + " update")
-            return@setOnHoverListener true
-        }
-  settingsPopupLayoutBinding.logout.setOnHoverListener { v, event ->
-            Log.d("flvjkfnvf",event.action.toString() + " logout")
-            return@setOnHoverListener true
+        settingsPopupLayoutBinding?.myEarnings?.setOnClickListener {
+            onItemClick(SettingsPopupItemAction.MY_EARNINGS.toString())
+            dismiss()
         }
 
 
 
         return this
+    }
+
+    fun hideUpdateButton(){
+        settingsPopupLayoutBinding?.update?.inVisible()
+    }
+    fun showUpdateButton(){
+        settingsPopupLayoutBinding?.update?.visible()
     }
 
 
@@ -134,6 +92,7 @@ class SettingsPopup  {
 
     enum class SettingsPopupItemAction(){
         ABOUT_CITI_PRIME_BROADCASTING,
+        MY_EARNINGS,
         UPDATE,
         LOGOUT
     }

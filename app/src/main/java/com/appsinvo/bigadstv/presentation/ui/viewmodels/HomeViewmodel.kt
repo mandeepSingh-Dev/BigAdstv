@@ -1,6 +1,7 @@
 package com.appsinvo.bigadstv.presentation.ui.viewmodels
 
 import DefaultPaginator
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,6 +17,9 @@ import com.appsinvo.bigadstv.utils.getHourOfDay
 import com.appsinvo.bigadstv.utils.get_Date_Of_UTC_Time
 import com.appsinvo.bigadstv.utils.isBetweenRange
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
@@ -35,10 +39,13 @@ class HomeViewmodel @Inject constructor(private val adsAllUseCases: AdsAllUseCas
     var currentPage : Int = 1
     var totalCount : Int = 20
 
+    lateinit var allAdsPaginator : DefaultPaginator<Int, AllAdsResponse>
+
 
     init {
 
-        viewModelScope.launch {
+      viewModelScope.launch {
+        Log.d("fvfkvfn","init")
             allAdsPaginator = DefaultPaginator<Int, AllAdsResponse>(
                 onLoadUpdated = {isLoading, isSearch ->
                     if(isLoading){
@@ -53,21 +60,29 @@ class HomeViewmodel @Inject constructor(private val adsAllUseCases: AdsAllUseCas
                     _allAdsResponse.send(NetworkResult.Error(error = err))
                 }
             )
+          getAllAds(page = currentPage.toString(), adType = "")
 
-            getAllAds(page = currentPage.toString(), adType = "")
-        }
+      }
 
 
     }
 
-    private lateinit var allAdsPaginator : DefaultPaginator<Int, AllAdsResponse>
 
-    suspend fun getAllAds(page : String? = "1" , limit : String? = null , adType : String?){
+      @SuppressLint("SuspiciousIndentation")
+      suspend fun getAllAds(page : String? = "1", limit : String? = null, adType : String?){
+          Log.d("fkvmvkfmvf","getAllAds")
 
         val isPaginating = page != "1"
-        allAdsPaginator.loadNextItems(pageNo = page?.toInt() ?: 1,isSearch = false, isPaginating = isPaginating, onRequest = {
-            adsAllUseCases.getAllAdsUsecase(page = page.toString(), adType = "")
-        })
+             allAdsPaginator.loadNextItems(
+                 pageNo = page?.toInt() ?: 1,
+                 isSearch = false,
+                 isPaginating = isPaginating,
+                 onRequest = {
+                     Log.d("fkvmvkfmvf","onRequest")
+                   val response =  adsAllUseCases.getAllAdsUsecase(page = page.toString(), adType = "")
+                     response
+                 })
+
     }
 
 

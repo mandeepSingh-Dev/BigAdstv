@@ -36,6 +36,33 @@
 
         />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/myEarnings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        app:icon="@drawable/earning"
+        app:backgroundTint="@color/color_state_selector"
+        app:iconTint="@null"
+        android:focusable="true"
+        android:backgroundTint="@null"
+        android:textColor="@color/white"
+        android:text="@string/TXT_LBL_my_earnings"
+        android:focusedByDefault="true"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        app:iconPadding="10dp"
+        app:iconSize="20dp"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.7dp"
+        android:background="@color/lb_grey"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+
+        />
+
      <com.google.android.material.button.MaterialButton
          android:id="@+id/update"
          android:layout_width="match_parent"

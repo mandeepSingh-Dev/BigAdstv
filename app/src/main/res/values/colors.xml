@@ -4,6 +4,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="colorPrimary">#32424F</color>
     <color name="skyBlue">#3ABADA</color>
+    <color name="skyBlue2">#78ffff</color>
+    <color name="darkBlue">#194477</color>
     <color name="pink">#D33090</color>
     <color name="background_theme_color">#12181e</color>
 

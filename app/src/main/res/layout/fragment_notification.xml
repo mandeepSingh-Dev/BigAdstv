@@ -43,7 +43,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Notifications"
+                android:text="@string/TXT_LBL_notifications"
                 android:layout_weight="1"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_17sdp"

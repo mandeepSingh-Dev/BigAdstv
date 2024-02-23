@@ -137,10 +137,16 @@ class PlayerFragment : BaseFragment() {
 
                 lifecycleScope.launch {
 
+                    //Getting stored ad(only ad that was closed exceptionally by user like app closed from recent task while app running)
+                    //in Local db for seek to last position.
                     val storedUserAdTrackFlow = playerViewmodel.getUserTrackAdUsecase(advertismentId = adsData?.advertisementId.toString())
                     if(storedUserAdTrackFlow != null){
                         val stAdTrack = storedUserAdTrackFlow.first()
                         mExoplayer.seekToPosition(stAdTrack?.watchTime?.toLong()?.times(1000) ?: 0)
+
+                        //If ad seeks to stored ad last position then delete this ad from local db.
+                        //So that player don't seek to last old position again.
+                        playerViewmodel.deleteTrackAdUsecase(advertismentId = adsData?.advertisementId.toString())
                     }
                 }
 
@@ -321,11 +327,8 @@ class PlayerFragment : BaseFragment() {
         super.onPause()
         val adsData = navArgs.adsDataList.find { it.filePath == mExoplayer.currentItem.toString()}
 
-        // If isBackpressed is not pressed/true then store video in db to play ad from last position
+        // If isBackpressed is not pressed/true means app is closed by user forcefully then store video in db to play ad from last position
         if(!isBackPressed){
-
-
-
 
             val trackAdsRequestBody = TrackAdsRequestBody(
                 advertisementId = adsData?.advertisementId.toString(),
@@ -351,7 +354,6 @@ class PlayerFragment : BaseFragment() {
     override fun onStop() {
         super.onStop()
         Toast.makeText(requireContext(),"onStop",Toast.LENGTH_SHORT).show()
-
     }
 
     override fun onDestroyView() {

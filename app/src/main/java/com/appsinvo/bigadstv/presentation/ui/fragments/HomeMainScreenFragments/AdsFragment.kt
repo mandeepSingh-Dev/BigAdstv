@@ -12,6 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import com.appsinvo.bigadstv.R
 import com.appsinvo.bigadstv.base.BaseFragment
 import com.appsinvo.bigadstv.data.remote.model.ads.getAllAds.response.AdsData
@@ -39,7 +40,14 @@ class AdsFragment : BaseFragment() {
     val binding : FragmentAdsBinding get() = _binding!!
 
     private val authViewmodel : AuthViewmodel by viewModels()
-    private val homeViewmodel : HomeViewmodel by viewModels()
+    // private val homeViewmodel : HomeViewmodel by navGraphViewModels(R.id.main_home_nav_graph)
+//    private val homeViewmodel: HomeViewmodel by navGraphViewModels(R.id.nav_graph)
+//    private val homeViewmodel: HomeViewmodel by navGraphViewModels(R.id.main_home_nav_graph)
+   // private val homeViewmodel: HomeViewmodel by navGraphViewModels(R.id.main_home_nav_graph)
+  //  private val homeViewmodel: HomeViewmodel by navGraphViewModels(R.id.main_home_nav_host_fragment)
+  //  private val homeViewmodel: HomeViewmodel by navGraphViewModels(R.id.my_nav_host_fragment)
+  //  private val homeViewmodel: HomeViewmodel by navGraphViewModels(R.id.homeMainFragment)
+    private val homeViewmodel by navGraphViewModels<HomeViewmodel>(R.id.main_home_nav_graph)
 
     private var navControllerParent : NavController? = null
 
@@ -79,7 +87,10 @@ class AdsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        navControllerParent =  Navigation.findNavController(requireActivity(), R.id.my_nav_host_fragment)
+        Log.d("fblmfkvmf",homeViewmodel.toString())
+
+
+        navControllerParent =  Navigation.findNavController(requireActivity(), R.id.adsFragment)
 
         lifecycleScope.launch {
             observeGetAllAdsApiResponse()

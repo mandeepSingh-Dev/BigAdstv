@@ -49,6 +49,9 @@
             android:id="@+id/action_loginFragment_to_homeFragment"
             app:destination="@id/homeFragment"
             app:popUpTo="@id/nav_graph" />
+        <action
+            android:id="@+id/action_loginFragment_to_homeMainFragment"
+            app:destination="@id/homeMainFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutCitiPrimeFragment"
@@ -81,5 +84,9 @@
             android:id="@+id/action_homeMainFragment_to_playerFragment"
             app:destination="@id/playerFragment" />
     </fragment>
-    <include app:graph="@navigation/main_home_nav_graph" />
+    <fragment
+        android:id="@+id/myEarningsFragment"
+        android:name="com.appsinvo.bigadstv.presentation.ui.fragments.MyEarningsFragment"
+        android:label="fragment_my_earnings_screen"
+        tools:layout="@layout/fragment_my_earnings_screen" />
 </navigation>

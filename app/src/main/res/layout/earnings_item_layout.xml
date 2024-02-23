@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="20dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <TextView
+            android:id="@+id/serialnumber"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="S.NO."
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+
+            app:layout_constraintRight_toLeftOf="@id/date"
+            />
+        <TextView
+
+            android:id="@+id/date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Date"
+            app:layout_constraintLeft_toRightOf="@id/serialnumber"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/Ads"
+            />
+               <TextView
+
+            android:id="@+id/Ads"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Ads"
+            app:layout_constraintLeft_toRightOf="@id/date"
+            app:layout_constraintTop_toTopOf="parent"
+                   app:layout_constraintRight_toLeftOf="@id/totalTime"
+                   />
+
+      <TextView
+
+            android:id="@+id/totalTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Total Time"
+            app:layout_constraintLeft_toRightOf="@id/Ads"
+            app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintRight_toLeftOf="@id/Days"
+            />
+
+  <TextView
+
+            android:id="@+id/Days"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Days"
+            app:layout_constraintLeft_toRightOf="@id/totalTime"
+            app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+            />
+
+        <View
+            android:id="@+id/dividerView"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/blue_radium_gradient_drawable"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/serialnumber"
+            />
+
+        <TextView
+            android:id="@+id/serialNumberValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="1"
+            app:layout_constraintTop_toBottomOf="@id/dividerView"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/date"/>
+
+    <TextView
+            android:id="@+id/dateValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+            android:text="22 Feb, 2024"
+        app:layout_constraintTop_toBottomOf="@id/dividerView"
+        app:layout_constraintLeft_toLeftOf="@id/date"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="@id/date"/>
+
+    <TextView
+            android:id="@+id/adsValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="5"
+        app:layout_constraintTop_toBottomOf="@id/dividerView"
+        app:layout_constraintLeft_toLeftOf="@id/Ads"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="@id/Ads"/>
+
+    <TextView
+            android:id="@+id/totalTimeValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="3:30 hours"
+        app:layout_constraintTop_toBottomOf="@id/dividerView"
+        app:layout_constraintLeft_toLeftOf="@id/totalTime"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="@id/totalTime"/>
+
+    <TextView
+            android:id="@+id/daysValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="0"
+            app:layout_constraintTop_toBottomOf="@id/dividerView"
+            app:layout_constraintLeft_toLeftOf="@id/Days"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="@id/Days"/>
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

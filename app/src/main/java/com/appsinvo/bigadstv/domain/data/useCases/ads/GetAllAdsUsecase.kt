@@ -13,9 +13,6 @@ import javax.inject.Inject
 
 class GetAllAdsUsecase @Inject constructor(private val adsRepository : AdsRepository) {
 
-
-
-
     suspend operator fun invoke(page : String? = null, limit : String? = null, adType : String?): NetworkResult<AllAdsResponse> {
         return adsRepository.getAllAds(page = page, limit = limit, adType = adType)
     }

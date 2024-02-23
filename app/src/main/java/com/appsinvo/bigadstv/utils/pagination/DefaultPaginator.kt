@@ -13,6 +13,8 @@ class DefaultPaginator<Key, Item>(
 
     override suspend fun loadNextItems(pageNo: Key, isSearch: Boolean, isPaginating: Boolean, onRequest: suspend () -> NetworkResult<Item>) {
         try {
+
+            Log.d("Fvmfkvmf","loadNestItems")
             if (isMakingRequest) {
               //  return
             }
@@ -20,7 +22,7 @@ class DefaultPaginator<Key, Item>(
 
             onLoadUpdated(true, isSearch)
 
-
+            Log.d("fvkfvmkf","onRequest")
             val pageResult = onRequest()
 
                 when (pageResult) {
@@ -46,6 +48,7 @@ class DefaultPaginator<Key, Item>(
                 }
 
         } catch (e: Exception) {
+            Log.d("Fvmfkvmf","loadNestItems ${e.message}")
             isMakingRequest = false
         }
     }
