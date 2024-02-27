@@ -21,7 +21,9 @@
     <color name="green_dark">#5A9427</color>
     <color name="yellow">#F1BA38</color>
     <color name="orange">#FC8B1A</color>
+    <color name="purple2">#911EA5</color>
 
 
-
+    android:startColor="#"
+    android:endColor="#1D5480"
 </resources>

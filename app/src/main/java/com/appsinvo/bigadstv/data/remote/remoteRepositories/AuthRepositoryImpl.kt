@@ -1,5 +1,7 @@
 package com.appsinvo.bigadstv.data.remote.remoteRepositories
 
+import android.content.Context
+import android.content.Intent
 import android.util.Log
 import com.appsinvo.bigadstv.data.local.datastore.AppDatastore
 import com.appsinvo.bigadstv.data.local.datastore.ConstantsDatastore
@@ -11,12 +13,16 @@ import com.appsinvo.bigadstv.data.remote.model.common.error.apiResponse1.ApiErro
 import com.appsinvo.bigadstv.data.remote.networkUtils.NetworkResult
 import com.appsinvo.bigadstv.data.remote.networkUtils.handleUseCaseException
 import com.appsinvo.bigadstv.domain.data.repositories.AuthRepository
+import com.appsinvo.bigadstv.presentation.ui.activities.MainActivity
+import com.appsinvo.bigadstv.utils.Constants
 import com.appsinvo.bigadstv.utils.GsonHelper
 import com.appsinvo.bigadstv.utils.GsonHelper.Companion.fromJson
 import com.google.gson.GsonBuilder
+import dagger.hilt.android.qualifiers.ApplicationContext
+import java.net.HttpURLConnection
 import javax.inject.Inject
 
-class AuthRepositoryImpl @Inject constructor(private val authService: AuthService, private val appDataStore : AppDatastore) :
+class AuthRepositoryImpl @Inject constructor(@ApplicationContext val context: Context, private val authService: AuthService, private val appDataStore : AppDatastore) :
     AuthRepository {
     override suspend fun login(loginRequestBody: LoginRequestBody): NetworkResult<LoginResponse> {
       return try{
@@ -40,7 +46,19 @@ class AuthRepositoryImpl @Inject constructor(private val authService: AuthServic
                     NetworkResult.Error(handleUseCaseException(java.lang.Exception(errorBody.message)))
                 }else{
                     val networkException = retrofit2.HttpException(response)
-                    NetworkResult.Error(handleUseCaseException(networkException))
+
+                    if(errorBody?.status_code ==0 && networkException.code() == HttpURLConnection.HTTP_FORBIDDEN)
+                    {
+                        //IF user access is denied then land app to the MainActivity(Login screen)
+                        val intent = Intent(context, MainActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        intent.putExtra(Constants.IS_USER_ACCESS_DENIED_OR_TOKEN_EXPIRED,true)
+                        context.startActivity(intent)
+
+                        NetworkResult.Error(handleUseCaseException(Exception(errorBody.message)))
+                    }else{
+                        NetworkResult.Error(handleUseCaseException(networkException))
+                    }
                 }
             }
 
@@ -68,7 +86,20 @@ class AuthRepositoryImpl @Inject constructor(private val authService: AuthServic
                     NetworkResult.Error(handleUseCaseException(java.lang.Exception(errorBody.message)))
                 }else{
                     val networkException = retrofit2.HttpException(response)
-                    NetworkResult.Error(handleUseCaseException(networkException))
+
+                    if(errorBody?.status_code ==0 && networkException.code() == HttpURLConnection.HTTP_FORBIDDEN)
+                    {
+                        //IF user access is denied then land app to the MainActivity(Login screen)
+                        val intent = Intent(context, MainActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        intent.putExtra(Constants.IS_USER_ACCESS_DENIED_OR_TOKEN_EXPIRED,true)
+                        context.startActivity(intent)
+
+                        NetworkResult.Error(handleUseCaseException(Exception(errorBody.message)))
+                    }else{
+                        NetworkResult.Error(handleUseCaseException(networkException))
+                    }
+
                 }
             }
 

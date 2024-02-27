@@ -4,7 +4,6 @@ import com.appsinvo.bigadstv.data.remote.apiServices.AdsService
 import com.appsinvo.bigadstv.data.remote.apiServices.AuthService
 import com.appsinvo.bigadstv.data.remote.apiServices.CommonServices
 import com.appsinvo.bigadstv.data.remote.apiServices.RealWorldTimeApiService
-import com.appsinvo.bigadstv.data.remote.model.ads.getAllAds.response.AllAdsResponseData
 import com.appsinvo.bigadstv.data.remote.remoteRepositories.AdsRepositoryImpl
 import com.appsinvo.bigadstv.data.remote.remoteRepositories.AuthRepositoryImpl
 import com.appsinvo.bigadstv.data.remote.remoteRepositories.CommonRepositoryImpl
@@ -15,6 +14,7 @@ import com.appsinvo.bigadstv.domain.data.repositories.CommonRepository
 import com.appsinvo.bigadstv.domain.data.repositories.RealWorldDateTimeRepository
 import com.appsinvo.bigadstv.domain.data.useCases.ads.AdsAllUseCases
 import com.appsinvo.bigadstv.domain.data.useCases.ads.GetAllAdsUsecase
+import com.appsinvo.bigadstv.domain.data.useCases.ads.GetUserEarningsUseCase
 import com.appsinvo.bigadstv.domain.data.useCases.ads.TrackAdUsecase
 import com.appsinvo.bigadstv.domain.data.useCases.auth.AuthAllUseCases
 import com.appsinvo.bigadstv.domain.data.useCases.auth.LoginUseCase
@@ -68,7 +68,7 @@ object ApiServicesModule {
     fun provideAuthAllUsecases(loginUseCase: LoginUseCase, logoutUseCase: LogoutUseCase) = AuthAllUseCases(loginUseCase = loginUseCase, logoutUseCase = logoutUseCase)
     //Providing UseCases
     @Provides
-    fun provideAllAdsUsecases(getAllAdsUsecase: GetAllAdsUsecase, trackAdsUsecase: TrackAdUsecase) : AdsAllUseCases = AdsAllUseCases(getAllAdsUsecase = getAllAdsUsecase, trackAdUsecase = trackAdsUsecase)
+    fun provideAllAdsUsecases(getAllAdsUsecase: GetAllAdsUsecase, trackAdsUsecase: TrackAdUsecase, getUserEarningsUseCase : GetUserEarningsUseCase) : AdsAllUseCases = AdsAllUseCases(getAllAdsUsecase = getAllAdsUsecase, trackAdUsecase = trackAdsUsecase, getUserEarningsUseCase = getUserEarningsUseCase)
 
     @Provides
     fun provideAllCommonUsecase(getNotificationUseCase : GetNotificationUseCase) = AllCommonUseCases(getNotificationUseCase)

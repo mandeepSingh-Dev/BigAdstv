@@ -1,6 +1,7 @@
 package com.appsinvo.bigadstv.data.remote.apiServices
 
 import com.appsinvo.bigadstv.data.remote.model.ads.getAllAds.response.AllAdsResponse
+import com.appsinvo.bigadstv.data.remote.model.ads.getUserEarnings.response.UserEarningResponse
 import com.appsinvo.bigadstv.data.remote.model.ads.trackAds.requestBody.TrackAdsRequestBody
 import com.appsinvo.bigadstv.data.remote.model.ads.trackAds.response.TrackAdsResponse
 import com.appsinvo.bigadstv.data.remote.networkUtils.ConstantsRemote
@@ -25,5 +26,10 @@ interface AdsService {
         @Body trackAdsRequestBody: TrackAdsRequestBody
     ) : Response<TrackAdsResponse>
 
+    @GET(ConstantsRemote.userEarnDetail)
+    suspend fun getUserEarnings(
+        @Query(ConstantsRemote.page) page:String? = "1",
+        @Query(ConstantsRemote.limit) limit:String? = null,
+        @Query(ConstantsRemote.month) month : Int? = null) : Response<UserEarningResponse>
 
 }

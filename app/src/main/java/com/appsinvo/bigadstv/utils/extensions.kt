@@ -1,5 +1,6 @@
 package com.appsinvo.bigadstv.utils
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.content.pm.PackageManager
@@ -52,22 +53,30 @@ fun Int.formatSecondsToHMS(): String {
 
     return String.format("%02d:%02d:%02d", hours, minutes, secs)
 }
+fun Int.formatSecondsToHM(): String {
+    val seconds = this
+    val hours = seconds / 3600
+    val minutes = (seconds % 3600) / 60
+    val secs = seconds % 60
+
+    return String.format("%01d:%02d", hours, minutes)
+}
 
 fun Long.formatMillisToDateTime(): String {
     val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX", Locale.getDefault())
     return dateFormat.format(Date(this))
 }
 
-fun String.get_Formatted_UTC_Time(format : String = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSXXX"): String? {
+fun String.get_Formatted_UTC_Time(fromFormat : String = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSXXX", toFormat : String = "HH:mm:ss"): String? {
 
-    val isoFormat = SimpleDateFormat(format, Locale.getDefault())
+    val isoFormat = SimpleDateFormat(fromFormat, Locale.getDefault())
     isoFormat.timeZone = TimeZone.getTimeZone("UTC")
 
    return try {
      /* source : "2024-02-19T17:10:27.492343+05:30"  EXAMPLE */
 
         val date = isoFormat.parse(this)
-        val timeFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+        val timeFormat = SimpleDateFormat(toFormat, Locale.getDefault())
         timeFormat.timeZone = TimeZone.getDefault() // Use local timezone
         timeFormat.format(date)
     } catch (e: Exception) {
@@ -75,6 +84,7 @@ fun String.get_Formatted_UTC_Time(format : String = "yyyy-MM-dd'T'HH:mm:ss.SSSSS
         null // Handle parsing error
     }
 }
+
 
 
 
@@ -105,6 +115,28 @@ fun Int.isBetweenRange(startHr : Int, endHr : Int): Boolean? {
     } catch (e: Exception) {
         null
     }
+}
+
+fun Float.toPx(context: Context): Float {
+    return this * context.resources.displayMetrics.density
+}
+fun Float.toDp(context: Context): Float {
+    return this / context.resources.displayMetrics.density
+}
+
+@SuppressLint("SimpleDateFormat")
+fun String.changeDateFormat(): String {
+
+    if(this.isNullOrEmpty()) return ""
+
+    val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
+    val time = simpleDateFormat.parse(this)
+
+    val outputSDF = SimpleDateFormat("d MMM,YYYY")
+    val format = outputSDF.format(time)
+    Log.d("fblmkbng",format.toString())
+
+    return format
 }
 
 

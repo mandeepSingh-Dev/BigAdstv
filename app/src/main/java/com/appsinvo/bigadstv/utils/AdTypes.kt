@@ -1,6 +1,6 @@
 package com.appsinvo.bigadstv.utils
 
-enum class AdTypes(value : Int) {
+enum class AdTypes(val value : Int) {
     ADS(1),
     REELS(2),
     NEWS(3),

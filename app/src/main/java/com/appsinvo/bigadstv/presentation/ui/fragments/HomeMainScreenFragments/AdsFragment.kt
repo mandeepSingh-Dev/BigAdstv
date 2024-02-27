@@ -6,13 +6,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
-import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
+import androidx.navigation.fragment.navArgs
 import com.appsinvo.bigadstv.R
 import com.appsinvo.bigadstv.base.BaseFragment
 import com.appsinvo.bigadstv.data.remote.model.ads.getAllAds.response.AdsData
@@ -20,7 +22,6 @@ import com.appsinvo.bigadstv.data.remote.model.ads.getAllAds.response.AllAdsResp
 import com.appsinvo.bigadstv.data.remote.networkUtils.NetworkResult
 import com.appsinvo.bigadstv.databinding.FragmentAdsBinding
 import com.appsinvo.bigadstv.presentation.ui.adapters.AdsAdapter
-import com.appsinvo.bigadstv.presentation.ui.dialogs.SettingsPopup
 import com.appsinvo.bigadstv.presentation.ui.fragments.HomeMainFragmentDirections
 import com.appsinvo.bigadstv.presentation.ui.viewmodels.AuthViewmodel
 import com.appsinvo.bigadstv.presentation.ui.viewmodels.HomeViewmodel
@@ -29,6 +30,8 @@ import com.appsinvo.bigadstv.utils.inVisible
 import com.appsinvo.bigadstv.utils.showSnackbar
 import com.appsinvo.bigadstv.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
@@ -40,14 +43,12 @@ class AdsFragment : BaseFragment() {
     val binding : FragmentAdsBinding get() = _binding!!
 
     private val authViewmodel : AuthViewmodel by viewModels()
-    // private val homeViewmodel : HomeViewmodel by navGraphViewModels(R.id.main_home_nav_graph)
-//    private val homeViewmodel: HomeViewmodel by navGraphViewModels(R.id.nav_graph)
-//    private val homeViewmodel: HomeViewmodel by navGraphViewModels(R.id.main_home_nav_graph)
-   // private val homeViewmodel: HomeViewmodel by navGraphViewModels(R.id.main_home_nav_graph)
-  //  private val homeViewmodel: HomeViewmodel by navGraphViewModels(R.id.main_home_nav_host_fragment)
-  //  private val homeViewmodel: HomeViewmodel by navGraphViewModels(R.id.my_nav_host_fragment)
-  //  private val homeViewmodel: HomeViewmodel by navGraphViewModels(R.id.homeMainFragment)
-    private val homeViewmodel by navGraphViewModels<HomeViewmodel>(R.id.main_home_nav_graph)
+
+    private val homeViewmodel : HomeViewmodel by viewModels()
+
+    private val homeViewmodelShared: HomeViewmodel by activityViewModels()
+
+    private val navArgs : AdsFragmentArgs by navArgs()
 
     private var navControllerParent : NavController? = null
 
@@ -75,6 +76,23 @@ class AdsFragment : BaseFragment() {
         })
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+
+
+        CoroutineScope(Dispatchers.IO).launch {
+            repeatOnLifecycle(state = Lifecycle.State.CREATED){
+
+                homeViewmodel.getAllAds( adType = navArgs.adType.value)
+              //  homeViewmodel.getAllAds( adType = navArgs.adType.value)
+            }
+
+
+        }
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -84,13 +102,24 @@ class AdsFragment : BaseFragment() {
         return binding.root
     }
 
+    @SuppressLint("UnsafeRepeatOnLifecycleDetector")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.d("fblmfkvmf",homeViewmodel.toString())
 
 
-        navControllerParent =  Navigation.findNavController(requireActivity(), R.id.adsFragment)
+
+
+        lifecycleScope.launch {
+            homeViewmodelShared.updateValue.collect {
+                homeViewmodel.currentPage = 1
+                homeViewmodel.totalCount = 0
+                homeViewmodel.getAllAds(page = homeViewmodel.currentPage.toString(), adType = navArgs.adType.value)
+            }
+        }
+
+
+        navControllerParent =  Navigation.findNavController(requireActivity(), R.id.my_nav_host_fragment)
 
         lifecycleScope.launch {
             observeGetAllAdsApiResponse()
@@ -106,7 +135,7 @@ class AdsFragment : BaseFragment() {
             lifecycleScope.launch {
                 if(adsAdapter.currentList.size < homeViewmodel.totalCount){
                     homeViewmodel.currentPage += 1
-                    homeViewmodel.getAllAds(page = homeViewmodel.currentPage.toString(), adType = "")
+                    homeViewmodel.getAllAds(page = homeViewmodel.currentPage.toString(), adType = navArgs.adType.value)
                 }
             }
         })
@@ -121,8 +150,8 @@ class AdsFragment : BaseFragment() {
             when(networkResult){
                 is NetworkResult.Loading -> {
                     if(homeViewmodel.currentPage == 1) {
-                        showLoading()
                           if(adsAdapter.currentList.isEmpty()){
+                              binding.shimmerLayout.visible()
                               binding.shimmerLayout.startShimmer()
                           }else{
                               showLoading()
@@ -139,6 +168,8 @@ class AdsFragment : BaseFragment() {
                         binding.shimmerLayout.stopShimmer()
                         binding.shimmerLayout.inVisible()
                         setData(networkResult)
+                    binding.pagintationProgressBar.inVisible()
+
                 }
                 is NetworkResult.Error -> {
                     hideLoading()
@@ -217,5 +248,11 @@ class AdsFragment : BaseFragment() {
                  binding.nestedScrollView.smoothScrollTo(0,binding.nestedScrollView.scrollY + 50)
               }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+
     }
 }

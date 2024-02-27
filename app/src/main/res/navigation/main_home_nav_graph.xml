@@ -9,14 +9,18 @@
         android:id="@+id/adsFragment"
         android:name="com.appsinvo.bigadstv.presentation.ui.fragments.HomeMainScreenFragments.AdsFragment"
         android:label="Ads Fragment"
-        tools:layout="@layout/fragment_ads" />
+        tools:layout="@layout/fragment_ads" >
+        <argument
+            android:name="AdType"
+            app:argType="com.appsinvo.bigadstv.utils.AdTypes" />
+    </fragment>
     <fragment
         android:id="@+id/mainCategoriesFragment"
         android:name="com.appsinvo.bigadstv.presentation.ui.fragments.HomeMainScreenFragments.MainCategoriesFragment"
         android:label="fragment_main_categories"
         tools:layout="@layout/fragment_main_categories" >
         <action
-            android:id="@+id/action_mainCategoriesFragment_to_homeFragment2"
+            android:id="@+id/action_mainCategoriesFragment_to_adsFragment"
             app:destination="@id/adsFragment" />
     </fragment>
 </navigation>

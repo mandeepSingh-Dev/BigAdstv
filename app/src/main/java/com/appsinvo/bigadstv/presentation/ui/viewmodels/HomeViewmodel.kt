@@ -39,13 +39,15 @@ class HomeViewmodel @Inject constructor(private val adsAllUseCases: AdsAllUseCas
     var currentPage : Int = 1
     var totalCount : Int = 20
 
-    lateinit var allAdsPaginator : DefaultPaginator<Int, AllAdsResponse>
+     var allAdsPaginator : DefaultPaginator<Int, AllAdsResponse>? = null
+
+    var _updateValue = Channel<String>()
+    val updateValue = _updateValue.receiveAsFlow()
 
 
     init {
 
       viewModelScope.launch {
-        Log.d("fvfkvfn","init")
             allAdsPaginator = DefaultPaginator<Int, AllAdsResponse>(
                 onLoadUpdated = {isLoading, isSearch ->
                     if(isLoading){
@@ -60,8 +62,6 @@ class HomeViewmodel @Inject constructor(private val adsAllUseCases: AdsAllUseCas
                     _allAdsResponse.send(NetworkResult.Error(error = err))
                 }
             )
-          getAllAds(page = currentPage.toString(), adType = "")
-
       }
 
 
@@ -69,17 +69,17 @@ class HomeViewmodel @Inject constructor(private val adsAllUseCases: AdsAllUseCas
 
 
       @SuppressLint("SuspiciousIndentation")
-      suspend fun getAllAds(page : String? = "1", limit : String? = null, adType : String?){
+      suspend fun getAllAds(page : String? = "1", limit : String? = null, adType : Int?){
           Log.d("fkvmvkfmvf","getAllAds")
 
         val isPaginating = page != "1"
-             allAdsPaginator.loadNextItems(
+             allAdsPaginator?.loadNextItems(
                  pageNo = page?.toInt() ?: 1,
                  isSearch = false,
                  isPaginating = isPaginating,
                  onRequest = {
                      Log.d("fkvmvkfmvf","onRequest")
-                   val response =  adsAllUseCases.getAllAdsUsecase(page = page.toString(), adType = "")
+                   val response =  adsAllUseCases.getAllAdsUsecase(page = page.toString(), adType = adType.toString())
                      response
                  })
 

@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.appsinvo.bigadstv.R
 import com.appsinvo.bigadstv.base.BaseFragment
 import com.appsinvo.bigadstv.databinding.FragmentMainCategoriesBinding
+import com.appsinvo.bigadstv.utils.AdTypes
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,17 +33,21 @@ class MainCategoriesFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.adsCategoryCardViewId.setOnClickListener {
-            findNavController().navigate(R.id.adsFragment)
+            val action = MainCategoriesFragmentDirections.actionMainCategoriesFragmentToAdsFragment(AdTypes.ADS)
+            findNavController().navigate(action)
         }
         binding.newsCategoryCardViewId.setOnClickListener {
-            findNavController().navigate(R.id.adsFragment)
+            val action = MainCategoriesFragmentDirections.actionMainCategoriesFragmentToAdsFragment(AdTypes.NEWS)
+            findNavController().navigate(action)
         }
         binding.reelsCategoryCardViewId.setOnClickListener {
-            findNavController().navigate(R.id.adsFragment)
+            val action = MainCategoriesFragmentDirections.actionMainCategoriesFragmentToAdsFragment(AdTypes.REELS)
+            findNavController().navigate(action)
         }
         binding.popupsCategoryCardViewId.setOnClickListener {
-            findNavController().navigate(R.id.adsFragment)
-        }
+            val action = MainCategoriesFragmentDirections.actionMainCategoriesFragmentToAdsFragment(AdTypes.POPUPS)
+            findNavController().navigate(action)
+             }
 
 
     }

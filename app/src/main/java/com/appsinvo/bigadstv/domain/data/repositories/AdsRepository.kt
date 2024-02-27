@@ -1,6 +1,7 @@
 package com.appsinvo.bigadstv.domain.data.repositories
 
 import com.appsinvo.bigadstv.data.remote.model.ads.getAllAds.response.AllAdsResponse
+import com.appsinvo.bigadstv.data.remote.model.ads.getUserEarnings.response.UserEarningResponse
 import com.appsinvo.bigadstv.data.remote.model.ads.trackAds.requestBody.TrackAdsRequestBody
 import com.appsinvo.bigadstv.data.remote.model.ads.trackAds.response.TrackAdsResponse
 import com.appsinvo.bigadstv.data.remote.model.realWorldDateTime.RealWorldDateTimeResponse
@@ -14,6 +15,7 @@ interface AdsRepository {
 
     suspend fun getAllAds(page : String? = null, limit : String? = null, adType : String? = null) : NetworkResult<AllAdsResponse>
    suspend fun trackAd(trackAdsRequestBody: TrackAdsRequestBody) : NetworkResult<TrackAdsResponse>
+   suspend fun getUserEarning(page : String? = null, limit : String? = null, month : Int? = null) : NetworkResult<UserEarningResponse>
 
 }
 

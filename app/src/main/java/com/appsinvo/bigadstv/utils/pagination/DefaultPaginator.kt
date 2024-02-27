@@ -1,3 +1,4 @@
+import android.annotation.SuppressLint
 import android.util.Log
 import com.appsinvo.bigadstv.data.remote.networkUtils.NetworkResult
 import com.appsinvo.bigadstv.utils.Constants.PAGINATION_DELAY
@@ -11,6 +12,7 @@ class DefaultPaginator<Key, Item>(
 
     private var isMakingRequest = false
 
+    @SuppressLint("SuspiciousIndentation")
     override suspend fun loadNextItems(pageNo: Key, isSearch: Boolean, isPaginating: Boolean, onRequest: suspend () -> NetworkResult<Item>) {
         try {
 

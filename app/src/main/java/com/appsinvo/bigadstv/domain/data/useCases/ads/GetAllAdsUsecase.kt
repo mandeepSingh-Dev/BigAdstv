@@ -1,6 +1,7 @@
 package com.appsinvo.bigadstv.domain.data.useCases.ads
 
 import com.appsinvo.bigadstv.data.remote.model.ads.getAllAds.response.AllAdsResponse
+import com.appsinvo.bigadstv.data.remote.model.ads.getUserEarnings.response.UserEarningResponse
 import com.appsinvo.bigadstv.data.remote.model.ads.trackAds.requestBody.TrackAdsRequestBody
 import com.appsinvo.bigadstv.data.remote.model.ads.trackAds.response.TrackAdsResponse
 import com.appsinvo.bigadstv.data.remote.model.auth.login.response.LogoutResponse

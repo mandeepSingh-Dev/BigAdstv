@@ -85,6 +85,7 @@
                         android:id="@+id/news_CategoryCardViewId"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        app:cardCornerRadius="8dp"
                         android:orientation="vertical"
                         android:layout_weight="1"
                         app:layout_constraintRight_toLeftOf="@id/centerViewId"
@@ -96,6 +97,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
+                            app:cardCornerRadius="10dp"
                             android:background="@drawable/gradient_ads_element1"
                             android:gravity="center">
 
@@ -112,7 +114,7 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="20dp"
+                        android:layout_height="10dp"
                         android:background="@android:color/transparent"
                         />
 
@@ -123,6 +125,7 @@
                         android:background="@color/pink"
                         android:backgroundTint="@color/pink"
                         android:orientation="vertical"
+                        app:cardCornerRadius="8dp"
                         android:layout_weight="1"
                         app:layout_constraintRight_toLeftOf="@id/centerViewId"
                         app:layout_constraintLeft_toLeftOf="parent"
@@ -148,7 +151,7 @@
                     </androidx.cardview.widget.CardView>
                     <View
                         android:layout_width="wrap_content"
-                        android:layout_height="20dp"
+                        android:layout_height="10dp"
                         android:background="@android:color/transparent"
                         />
                     <androidx.cardview.widget.CardView
@@ -157,6 +160,7 @@
                         android:layout_height="match_parent"
                         android:background="@color/pink"
                         android:backgroundTint="@color/pink"
+                        app:cardCornerRadius="8dp"
                         android:layout_weight="1"
                         android:orientation="vertical"
                         app:layout_constraintRight_toLeftOf="@id/centerViewId"

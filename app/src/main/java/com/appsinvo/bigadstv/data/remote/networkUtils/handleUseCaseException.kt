@@ -5,6 +5,7 @@ import java.net.HttpURLConnection
 
 fun handleUseCaseException(exception: Exception) : String{
     return when(exception){
+
         is retrofit2.HttpException -> {
             networkCodeError(exception)
         }
@@ -25,6 +26,7 @@ fun networkCodeError(exception : retrofit2.HttpException): String{
         HttpURLConnection.HTTP_BAD_REQUEST ->  "400 : Client Error! Bad Request"
         HttpURLConnection.HTTP_UNAUTHORIZED -> "Token is Expired,login again!"
         HttpURLConnection.HTTP_PAYMENT_REQUIRED -> "Payment Required"
+
         else -> {exception.message.toString()}
     }
 

@@ -16,7 +16,10 @@ import com.appsinvo.bigadstv.base.BaseFragment
 import com.appsinvo.bigadstv.data.local.database.Dao.AdsDao
 import com.appsinvo.bigadstv.databinding.FragmentSplashBinding
 import com.appsinvo.bigadstv.presentation.ui.viewmodels.AuthViewmodel
+import com.appsinvo.bigadstv.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -50,29 +53,47 @@ class SplashFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        //intent condition When MainActivity opens from User's Access Denied or Token Expired
+        val isFromUser_Denied_Access_Error = requireActivity().intent.getBooleanExtra(Constants.IS_USER_ACCESS_DENIED_OR_TOKEN_EXPIRED, false)
+        Log.d("fbklngkbng", "$isFromUser_Denied_Access_Error splashFragment ")
+
+        if(!isFromUser_Denied_Access_Error){
+            playSplashVideo()
+        }else{
+            CoroutineScope(Dispatchers.Main).launch {
+                authViewmodel.clearAllAppData()
+                navigateToLoginFragment()
+            }
+        }
+
+
+
+    }
+
+    private fun playSplashVideo(){
         val logoUri = Uri.parse("android.resource://" + requireContext().packageName + "/" + R.raw.bigads_tv_animation_logo)
 
-      binding.videoView.setVideoURI(logoUri)
+        binding.videoView.setVideoURI(logoUri)
 
         val mediaController = MediaController(requireContext())
         mediaController.setAnchorView(binding.videoView)
         mediaController.setMediaPlayer(binding.videoView)
         binding.videoView.start()
-       binding.videoView.setOnCompletionListener {
+        binding.videoView.setOnCompletionListener {
 
-           lifecycleScope.launch {
-               val isLogin = authViewmodel.isLogin()
-               if(isLogin){
+            lifecycleScope.launch {
+                val isLogin = authViewmodel.isLogin()
+                if(isLogin){
 
 //                   navigateToHomeFragment()
-                   navigateToHomeMainScreenFragment()
-               }else{
-                  navigateToLoginFragment()
-               }
-           }
+                    navigateToHomeMainScreenFragment()
+                }else{
+                    navigateToLoginFragment()
+                }
+            }
         }
     }
-
     private fun navigateToLoginFragment(){
         val loginFragmentDirections = SplashFragmentDirections.actionSplashFragmentToLoginFragment()
         findNavController().navigate(loginFragmentDirections)

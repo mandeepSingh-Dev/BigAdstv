@@ -9,6 +9,7 @@ import com.appsinvo.bigadstv.data.remote.model.auth.login.response.LoginResponse
 import com.appsinvo.bigadstv.data.remote.model.auth.login.response.LogoutResponse
 import com.appsinvo.bigadstv.data.remote.networkUtils.NetworkResult
 import com.appsinvo.bigadstv.domain.data.useCases.auth.AuthAllUseCases
+import com.appsinvo.bigadstv.domain.local.useCases.tracksAds.AllTrackAdsUsecases
 import com.appsinvo.bigadstv.utils.GsonHelper
 import com.appsinvo.bigadstv.utils.GsonHelper.Companion.fromJson
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +19,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class AuthViewmodel @Inject constructor(val authAllUseCases: AuthAllUseCases, val appDataStore : AppDatastore): ViewModel() {
+class AuthViewmodel @Inject constructor(private val authAllUseCases: AuthAllUseCases,private  val appDataStore : AppDatastore, private val allTrackAdsUsecases: AllTrackAdsUsecases): ViewModel() {
 
     private var _loginResponse : Channel<NetworkResult<LoginResponse>> = Channel<NetworkResult<LoginResponse>>()
     val loginResponse = _loginResponse.receiveAsFlow()
@@ -57,6 +58,11 @@ class AuthViewmodel @Inject constructor(val authAllUseCases: AuthAllUseCases, va
         _logoutResponse.send(NetworkResult.Loading())
         val response = authAllUseCases.logoutUseCase()
         _logoutResponse.send(response)
+    }
+
+    suspend fun clearAllAppData(){
+        appDataStore.clearAllData()
+        allTrackAdsUsecases.deleteAllUserTrackAdsUsecase()
     }
 
 

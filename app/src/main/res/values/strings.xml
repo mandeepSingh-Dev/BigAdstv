@@ -34,4 +34,18 @@
     <string name="TXT_LBL_note">Note:</string>
     <string name="TXT_LBL_my_earnings">My Earnings</string>
 
+    <string-array name="Months">
+        <item>January</item>
+    <item> February</item>
+    <item> March</item>
+    <item> April</item>
+    <item> May</item>
+    <item> June</item>
+    <item> July</item>
+    <item> August</item>
+    <item> September</item>
+    <item> October</item>
+    <item> November</item>
+    <item> December</item>
+    </string-array>
 </resources>

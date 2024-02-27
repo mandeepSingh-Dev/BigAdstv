@@ -1,14 +1,11 @@
 package com.appsinvo.bigadstv.presentation.ui.fragments
 
-import android.content.ContentResolver.MimeTypeInfo
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.MimeTypeMap
-import androidx.core.content.FileProvider
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -22,12 +19,8 @@ import com.appsinvo.bigadstv.databinding.FragmentHomeMainScreenBinding
 import com.appsinvo.bigadstv.presentation.ui.dialogs.SettingsPopup
 import com.appsinvo.bigadstv.presentation.ui.viewmodels.AuthViewmodel
 import com.appsinvo.bigadstv.presentation.ui.viewmodels.HomeViewmodel
-import com.appsinvo.bigadstv.utils.inVisible
 import com.appsinvo.bigadstv.utils.showSnackbar
-import com.appsinvo.bigadstv.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -42,7 +35,7 @@ class HomeMainFragment : BaseFragment() {
 
     private val authViewmodel : AuthViewmodel by viewModels()
 
-    private val homeViewmodel : HomeViewmodel by viewModels()
+    private val homeViewModelShared :HomeViewmodel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,8 +49,6 @@ class HomeMainFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        Log.d("fblmfkvmf",homeViewmodel.toString())
 
         settingsPopup = SettingsPopup().createDropDown(requireContext(), onItemClick = { action ->
             performSettingsPopupWindowAction(action = action)
@@ -76,38 +67,8 @@ class HomeMainFragment : BaseFragment() {
 
 
         setOnClickListener()
-
-        lifecycleScope.launch {
-
-            delay(4000)
-            homeViewmodel.currentPage = 2
-            homeViewmodel.totalCount = 0
-
-            Log.d("Fvlmfkmvf","delalllgffd")
-            homeViewmodel.getAllAds(page = homeViewmodel.currentPage.toString(), adType = "")
-
-        }
-
     }
 
-    private suspend fun observeGetAllAdsApiResponse(){
-        homeViewmodel.allAdsResponse.collect{networkResult ->
-            when(networkResult){
-                is NetworkResult.Loading -> {
-                        showLoading()
-
-                }
-                is NetworkResult.Success ->{
-                    hideLoading()
-
-                }
-                is NetworkResult.Error -> {
-                    hideLoading()
-                    binding.root.showSnackbar(message = networkResult.error.toString())
-                }
-            }
-        }
-    }
 
 
     private val onDestinationChangeListener = NavController.OnDestinationChangedListener { controller, destination, arguments ->
@@ -137,12 +98,15 @@ class HomeMainFragment : BaseFragment() {
             }
             SettingsPopup.SettingsPopupItemAction.UPDATE.toString() -> {
 
-            CoroutineScope(Dispatchers.IO).launch {
+                lifecycleScope.launch {
+                    homeViewModelShared._updateValue.send("Hello")
+                }
+        /*     CoroutineScope(Dispatchers.IO).launch {
                     homeViewmodel.currentPage = 2
                     homeViewmodel.totalCount = 0
 
                     homeViewmodel.getAllAds(page = homeViewmodel.currentPage.toString(), adType = "")
-                }
+                } */
             }
             SettingsPopup.SettingsPopupItemAction.LOGOUT.toString() -> {
                 lifecycleScope.launch {
@@ -165,6 +129,8 @@ class HomeMainFragment : BaseFragment() {
 
                 is NetworkResult.Error -> {
                     hideLoading()
+
+                    requireActivity().window.decorView.showSnackbar(message = networkResult.error.toString())
                 }
             }
         }

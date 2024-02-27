@@ -349,6 +349,9 @@ class PlayerFragment : BaseFragment() {
             }
         }
 
+        mExoplayer.releasePlayer()
+
+
         Toast.makeText(requireContext(),"onPause ${isBackPressed.toString()}",Toast.LENGTH_SHORT).show()
     }
     override fun onStop() {
@@ -358,6 +361,7 @@ class PlayerFragment : BaseFragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        mExoplayer.releasePlayer()
 
         onBackPressedCallback.remove()
 

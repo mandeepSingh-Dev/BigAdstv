@@ -17,12 +17,14 @@ object ConstantsRemote {
     const val logout = "$USER_ENDPOINT/logout"
     const val getAllAds = "$USER_ENDPOINT/getAllAds"
     const val userAdTrack = "$USER_ENDPOINT/userAdTrack"
+    const val userEarnDetail = "$USER_ENDPOINT/userEarnDetail"
     const val getNotifications = "$USER_ENDPOINT/getNotification"
 
     //param-keys
     const val page = "page"
     const val limit = "limit"
     const val adType = "adType"
+    const val month = "month"
 
 
 }

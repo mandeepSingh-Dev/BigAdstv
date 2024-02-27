@@ -2,9 +2,11 @@ package com.appsinvo.bigadstv.presentation.ui.activities
 
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import com.appsinvo.bigadstv.base.BaseActivity
 import com.appsinvo.bigadstv.databinding.ActivityMainBinding
 import com.appsinvo.bigadstv.presentation.ui.dialogs.ButtonsDialog
+import com.appsinvo.bigadstv.utils.Constants
 
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,6 +23,11 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(_binding.root)
+
+
+
+
+
         //App restricted for every device except Android TV.
       //  restrictAppOnMobile()
     }
@@ -45,4 +52,6 @@ class MainActivity : BaseActivity() {
             }
         )
     } */
+
+
 }

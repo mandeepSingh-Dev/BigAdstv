@@ -19,9 +19,13 @@ abstract class BaseFragment : Fragment() {
         try {
             if (loadingDialog.isAdded) {
                 loadingDialog.dismiss()
-                loadingDialog.show(parentFragmentManager, "")
+                try {
+                    loadingDialog.show(parentFragmentManager, "")
+                }catch (e:Exception){}
             } else {
-                loadingDialog.show(parentFragmentManager, "")
+                try {
+                    loadingDialog.show(parentFragmentManager, "")
+                }catch (e:Exception){}
             }
         }catch (e:Exception){
             Log.d("dvnkvd",e.message.toString())
